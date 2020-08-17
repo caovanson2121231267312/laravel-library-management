@@ -13,4 +13,5 @@ yarn-error.log
 /bower_components
 /public/admin-lte
 /public/css
-/publc/js
+/public/js
+/public/mix-manifest.json
