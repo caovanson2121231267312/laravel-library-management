@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="content-wrapper">
-
     <div class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -16,22 +15,38 @@
                             <h3 class="card-title">{{ trans('message.edit_publisher') }}</h3>
                         </div>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('publishers.update', $publisher->id) }}">
                             @csrf
+                            @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>{{ trans('message.name') }}</label>
-                                    <input type="text" class="form-control" name="name" value="">
+                                    <input type="text" class="form-control" name="name" value="{{ $publisher->name }}">
+                                    @if ($errors->has('name'))
+                                        <span class="error">
+                                            {{ $errors->first('name') }}
+                                        </span>
+                                    @endif                                   
                                 </div>
 
                                 <div class="form-group">
                                     <label>{{ trans('message.email') }}</label>
-                                    <input type="email" class="form-control" name="email" value="">
+                                    <input type="email" class="form-control" name="email" value="{{ $publisher->email }}">
+                                    @if ($errors->has('email'))
+                                        <span class="error">
+                                            {{ $errors->first('email') }}
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <div class="form-group">
                                     <label>{{ trans('message.address') }}</label>
-                                    <input type="text" class="form-control" name="address" value="">
+                                    <input type="text" class="form-control" name="address" value="{{ $publisher->address }}">
+                                    @if ($errors->has('address'))
+                                        <span class="error">
+                                            {{ $errors->first('address') }}
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 

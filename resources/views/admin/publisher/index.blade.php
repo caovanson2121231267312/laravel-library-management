@@ -14,7 +14,7 @@
                         <nav class="navbar navbar-expand navbar-white navbar-light">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <h3 class="card-title">{{ trans('message.publishers') }}</h3> 
+                                    <h3 class="card-title">{{ trans('message.publishers') }}</h3>
                                 </li>
                             </ul>
 
@@ -33,7 +33,7 @@
 
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a href="">
+                                    <a href="{{ route('publishers.create') }}">
                                         <i class="fas fa-plus float-right m-2"></i>
                                     </a>
                                 </li>
@@ -70,27 +70,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($publishers as $publisher)
                                         <tr class="row jsgrid-row">
-                                            <td class="jsgrid-cell jsgrid-align-center col-md-1"></td>
-                                            <td class="jsgrid-cell col-md-3"></td>
-                                            <td class="jsgrid-cell col-md-3"></td>
-                                            <td class="jsgrid-cell col-md-3"></td>
+                                            <td class="jsgrid-cell jsgrid-align-center col-md-1">{{ $publisher->id }}
+                                            </td>
+                                            <td class="jsgrid-cell col-md-3">{{ $publisher->name }}</td>
+                                            <td class="jsgrid-cell col-md-3">{{ $publisher->email }}</td>
+                                            <td class="jsgrid-cell col-md-3">{{ $publisher->address }}</td>
                                             <td class="jsgrid-cell jsgrid-align-center col-md-2">
-                                                <a href="">
-                                                    <i class="fas fa-edit px-3 text text-primary"></i>
-                                                </a>
-
-                                                <a href="">
-                                                    <i class="fas fa-trash-alt px-3 text text-danger"></i>
-                                                </a>
+                                                <div class="custom-control-inline">
+                                                    <a class="btn btn-primary px-1 ml-2"
+                                                        href="{{ route('publishers.edit', $publisher->id) }}">
+                                                        <i class="fas fa-edit px-3"></i>
+                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('publishers.destroy', $publisher->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger px-1 ml-2">
+                                                            <i class="fas fa-trash-alt px-3"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{ $publishers->links() }}
             </div>
         </div>
     </div>
