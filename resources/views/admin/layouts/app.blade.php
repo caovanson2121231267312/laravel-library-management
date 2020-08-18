@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('admin-lte/plugins/jsgrid/jsgrid-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin-lte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    </head>
+    <link rel="stylesheet" href="{{ asset('admin-lte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+</head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -116,6 +117,15 @@
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item mt-4">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>
+                                    {{ trans('request.request_management') }}
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -139,6 +149,7 @@
     <script src="{{ asset('admin-lte/dist/js/demo.js') }}"></script>
     <script src="{{ asset('admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script src="{{ asset('admin-lte/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ mix('js/input_file.js') }}"></script>
     <script src="{{ mix('js/select_form.js') }}"></script>
 </body>
