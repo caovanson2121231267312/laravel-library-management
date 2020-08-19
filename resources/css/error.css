@@ -10,3 +10,8 @@
     border-color: red;
     padding: .375rem .75rem;
 }
+
+.image-management {
+    height: 100px;
+    width: 100%;
+}

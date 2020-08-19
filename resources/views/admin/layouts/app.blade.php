@@ -92,7 +92,7 @@
                         </li>
 
                         <li class="nav-item mt-4">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('authors.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-pencil-alt"></i>
                                 <p>
                                     {{ trans('message.authors') }}
@@ -101,7 +101,7 @@
                         </li>
 
                         <li class="nav-item mt-4">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('publishers.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-building"></i>
                                 <p>
                                     {{ trans('message.publishers') }}
