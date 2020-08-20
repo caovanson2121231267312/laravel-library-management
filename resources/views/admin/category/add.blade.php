@@ -15,7 +15,7 @@
                             <h3 class="card-title">{{ trans('message.add_category') }}</h3>
                         </div>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('categories.store') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -25,8 +25,9 @@
 
                                 <div class="form-group">
                                     <label>{{ trans('message.parent_category') }}</label>
-                                    <select class="form-control select2">
+                                    <select class="form-control select2" name="parent_id">
                                         <option selected="selected"></option>
+                                        {!! $categoryOption !!}
                                     </select>
                                 </div>
                             </div>

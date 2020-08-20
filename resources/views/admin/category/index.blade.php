@@ -33,7 +33,7 @@
 
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a href="">
+                                    <a href="{{ route('categories.create') }}">
                                         <i class="fas fa-plus float-right m-2"></i>
                                     </a>
                                 </li>
@@ -62,25 +62,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($categories as $category)
                                         <tr class="row jsgrid-row">
-                                            <td class="jsgrid-cell jsgrid-align-center col-md-1"></td>
-                                            <td class="jsgrid-cell col-md-8"></td>
+                                            <td class="jsgrid-cell jsgrid-align-center col-md-1">{{ $category->id }}
+                                            </td>
+                                            <td class="jsgrid-cell col-md-8">{{ $category->name }}</td>
                                             <td class="jsgrid-cell jsgrid-align-center col-md-3">
-                                                <a href="">
-                                                    <i class="fas fa-edit px-3 text text-primary"></i>
-                                                </a> 
-
-                                                <a href="">
-                                                    <i class="fas fa-trash-alt px-3 text text-danger"></i>
-                                                </a>
+                                                <div class="custom-control-inline">
+                                                    <a class="btn btn-primary px-1 ml-2"
+                                                        href="{{ route('categories.edit', $category->id) }}">
+                                                        <i class="fas fa-edit px-3"></i>
+                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('categories.destroy', $category->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger px-1 ml-2">
+                                                            <i class="fas fa-trash-alt px-3"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{ $categories->links() }}
             </div>
         </div>
     </div>
