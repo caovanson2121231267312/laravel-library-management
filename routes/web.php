@@ -17,4 +17,5 @@ Route::group(['prefix' => 'admin'], function() {
     Route::resource('publishers', 'PublisherController');
     Route::resource('authors', 'AuthorController');
     Route::resource('categories', 'CategoryController');
+    Route::resource('books', 'BookController');
 });

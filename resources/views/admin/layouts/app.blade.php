@@ -83,7 +83,7 @@
                         </li>
 
                         <li class="nav-item mt-4">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('books.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     {{ trans('message.books') }}
