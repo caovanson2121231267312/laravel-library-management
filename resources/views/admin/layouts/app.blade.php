@@ -26,7 +26,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">{{ trans('message.home') }}</a>
+                    <a href="{{ route('admin.home') }}" class="nav-link">{{ trans('message.home') }}</a>
                 </li>
             </ul>
 
@@ -46,16 +46,21 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="{{ route('logout') }}"
+                        role="button" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>{{ trans('message.log_out') }}</span>
                     </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="" class="brand-link">
-                <img src="{{ asset('admin-lte/dist/img/logo.png') }}" alt="{{ trans('message.logo') }}"
+            <a href="{{ route('admin.home') }}" class="brand-link">
+                <img src="{{ asset(config('image.logo')) }}" alt="{{ trans('message.logo') }}"
                     class="brand-image img-circle elevation-3">
                 <strong class="brand-text">{{ trans('message.web_name') }}</strong>
             </a>
