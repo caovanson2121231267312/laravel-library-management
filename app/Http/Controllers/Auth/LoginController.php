@@ -44,7 +44,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
     public function __construct()

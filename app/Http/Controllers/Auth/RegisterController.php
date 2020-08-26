@@ -42,7 +42,7 @@ class RegisterController extends Controller
         if ($request->password == $request->password_confirmation) {
             User::create($data);
 
-            return redirect()->route('login');
+            return redirect()->route('home');
         } else {
             
             return redirect()->back()->withInput();

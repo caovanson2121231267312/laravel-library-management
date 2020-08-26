@@ -46,15 +46,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="{{ route('logout') }}"
-                        role="button" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>{{ trans('message.log_out') }}</span>
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    @if (Auth::check())
+                        <a href="{{ route('logout') }}" class="nav-link" role="button">
+                            <i class="fas fa-sign-out-alt"></i>
+                            {{ trans('message.log_out')}}
+                        </a>
+                    @endif
                 </li>
             </ul>
         </nav>
