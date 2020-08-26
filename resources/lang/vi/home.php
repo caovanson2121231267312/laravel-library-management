@@ -30,5 +30,10 @@ return [
     'lib_info' => 'THÔNG TIN THƯ VIỆN',
     'location' => 'ĐỊA CHỈ',
     'hot_authors' => 'TÁC GIẢ ĐANG HOT',
-    'copy' => '© 2017 Elite shoppy. All rights reserved | Design by W3layouts'
+    'copy' => '© 2017 Elite shoppy. All rights reserved | Design by W3layouts',
+    'written_by' => 'Được viết bởi',
+    'from' => 'Đến từ',
+    'book_in_now' => 'sách đang sẵn có',
+    'reviews' => 'Nhận xét',
+    'related_books' => 'Sách liên quan',
 ];

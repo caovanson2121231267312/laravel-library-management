@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>{{ trans('home.web_name') }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <link href="{{ asset('book_lib/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{ asset('book_lib/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{ asset('book_lib/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('book_lib/css/easy-responsive-tabs.css') }}" rel='stylesheet' type='text/css' />
-</head>
-
-<body>
-    @include('auth.header')
-
-    @include('auth.login')
-
-    @include('auth.register')
+@section('content')
 
     @include('auth.banner')
 
@@ -35,54 +18,164 @@
 
                 <div class="resp-tabs-container">
                     <div class="tab1">
-                        <div class="col-md-3 product-men">
-                            <div class="men-pro-item simpleCart_shelfItem">
-                                <div class="men-thumb-item">
-                                    <img src="{{ asset('book_lib/images/m1.jpg') }}" alt="" class="pro-image-front">
-                                    <img src="{{ asset('book_lib/images/m1.jpg') }}" alt="" class="pro-image-back">
-                                    <div class="men-cart-pro">
-                                        <div class="inner-men-cart-pro">
-                                            <a href="" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                        @foreach ($textBooks as $textBook)
+                            <div class="col-md-3 product-men">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <img src="{{ $textBook->image }}" alt="" class="pro-image-front">
+                                        <img src="{{ $textBook->image }}" alt="" class="pro-image-back">
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="{{ route('book_detail', $textBook->id) }}" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <span class="product-new-top">{{ trans('home.new') }}</span>
-                                </div>
 
-                                <div class="item-info-product ">
-                                    {{-- get name book --}}
-                                    <h4><a href=""></a></h4>
+                                    <div class="item-info-product ">
+                                        <h4><a href="{{ route('book_detail', $textBook->id) }}">{{ $textBook->title }}</a></h4>
 
-                                    <div
-                                        class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                        <form action="#" method="get">
-                                            <fieldset>
-                                                <input type="hidden" name="cmd" value="_cart" />
-                                                <input type="hidden" name="add" value="1" />
-                                                <input type="hidden" name="business" value="" />
-                                                <input type="hidden" name="item_name" value="e" />
-                                                <input type="hidden" name="amount" value="1" />
-                                                <input type="hidden" name="discount_amount" value="1" />
-                                                <input type="hidden" name="return" value=" " />
-                                                <input type="hidden" name="cancel_return" value="" />
-                                                <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                            </fieldset>
-                                        </form>
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                            <form action="#" method="get">
+                                                <fieldset>
+                                                    <input type="hidden" name="cmd" value="_cart" />
+                                                    <input type="hidden" name="add" value="1" />
+                                                    <input type="hidden" name="business" value="" />
+                                                    <input type="hidden" name="item_name" value="{{ $textBook->title }}" />
+                                                    <input type="hidden" name="amount" value="1" />
+                                                    <input type="hidden" name="discount_amount" value="1" />
+                                                    <input type="hidden" name="return" value=" " />
+                                                    <input type="hidden" name="cancel_return" value="" />
+                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
+                                                </fieldset>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--/Get 8 new book-->
+                        @endforeach
+
                         <div class="clearfix"></div>
                     </div>
 
                     <div class="tab2">
+                        @foreach ($referenceBooks as $referenceBook)
+                            <div class="col-md-3 product-men">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <img src="{{ $referenceBook->image }}" alt="" class="pro-image-front">
+                                        <img src="{{ $referenceBook->image }}" alt="" class="pro-image-back">
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="{{ route('book_detail', $referenceBook->id) }}" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-info-product ">
+                                        <h4><a href="{{ route('book_detail', $referenceBook->id) }}">{{ $referenceBook->title }}</a></h4>
+
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                            <form action="#" method="get">
+                                                <fieldset>
+                                                    <input type="hidden" name="cmd" value="_cart" />
+                                                    <input type="hidden" name="add" value="1" />
+                                                    <input type="hidden" name="business" value="" />
+                                                    <input type="hidden" name="item_name" value="{{ $referenceBook->title }}" />
+                                                    <input type="hidden" name="amount" value="1" />
+                                                    <input type="hidden" name="discount_amount" value="1" />
+                                                    <input type="hidden" name="return" value=" " />
+                                                    <input type="hidden" name="cancel_return" value="" />
+                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="clearfix"></div>
                     </div>
 
                     <div class="tab3">
+                        @foreach ($comics as $comic)
+                            <div class="col-md-3 product-men">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <img src="{{ $comic->image }}" alt="" class="pro-image-front">
+                                        <img src="{{ $comic->image }}" alt="" class="pro-image-back">
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="{{ route('book_detail', $comic->id) }}" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-info-product ">
+                                        <h4><a href="{{ route('book_detail', $comic->id) }}">{{ $comic->title }}</a></h4>
+
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                            <form action="#" method="get">
+                                                <fieldset>
+                                                    <input type="hidden" name="cmd" value="_cart" />
+                                                    <input type="hidden" name="add" value="1" />
+                                                    <input type="hidden" name="business" value="" />
+                                                    <input type="hidden" name="item_name" value="{{ $comic->title }}" />
+                                                    <input type="hidden" name="amount" value="1" />
+                                                    <input type="hidden" name="discount_amount" value="1" />
+                                                    <input type="hidden" name="return" value=" " />
+                                                    <input type="hidden" name="cancel_return" value="" />
+                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="clearfix"></div>
                     </div>
 
                     <div class="tab4">
-                    </div>                    
+                        @foreach ($newspapers as $newspaper)
+                            <div class="col-md-3 product-men">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <img src="{{ $newspaper->image }}" alt="" class="pro-image-front">
+                                        <img src="{{ $newspaper->image }}" alt="" class="pro-image-back">
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="{{ route('book_detail', $newspaper->id) }}" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-info-product ">
+                                        <h4><a href="{{ route('book_detail', $newspaper->id) }}">{{ $newspaper->title }}</a></h4>
+
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                            <form action="#" method="get">
+                                                <fieldset>
+                                                    <input type="hidden" name="cmd" value="_cart" />
+                                                    <input type="hidden" name="add" value="1" />
+                                                    <input type="hidden" name="business" value="" />
+                                                    <input type="hidden" name="item_name" value="{{ $newspaper->title }}" />
+                                                    <input type="hidden" name="amount" value="1" />
+                                                    <input type="hidden" name="discount_amount" value="1" />
+                                                    <input type="hidden" name="return" value=" " />
+                                                    <input type="hidden" name="cancel_return" value="" />
+                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,68 +189,4 @@
             </div>
         </div>
     </div>
-
-    <div class="coupons">
-        <div class="coupons-grids text-center">
-            <div class="w3layouts_mail_grid">
-                <div class="col-md-3 w3layouts_mail_grid_left">
-                    <div class="w3layouts_mail_grid_left1 hvr-radial-out">
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-
-                    <div class="w3layouts_mail_grid_left2">
-                        <h3>{{ trans('home.free') }}</h3>
-                        <p>{{ trans('home.text') }}</p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 w3layouts_mail_grid_left">
-                    <div class="w3layouts_mail_grid_left1 hvr-radial-out">
-                        <i class="fa fa-headphones" aria-hidden="true"></i>
-                    </div>
-                    <div class="w3layouts_mail_grid_left2">
-                        <h3>{{ trans('home.free') }}</h3>
-                        <p>{{ trans('home.text') }}</p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 w3layouts_mail_grid_left">
-                    <div class="w3layouts_mail_grid_left1 hvr-radial-out">
-                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    </div>
-                    <div class="w3layouts_mail_grid_left2">
-                        <h3>{{ trans('home.free') }}</h3>
-                        <p>{{ trans('home.text') }}</p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 w3layouts_mail_grid_left">
-                    <div class="w3layouts_mail_grid_left1 hvr-radial-out">
-                        <i class="fa fa-gift" aria-hidden="true"></i>
-                    </div>
-                    <div class="w3layouts_mail_grid_left2">
-                        <h3>{{ trans('home.free') }}</h3>
-                        <p>{{ trans('home.text') }}</p>
-                    </div>
-                </div>
-
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-
-    @include('auth.footer')
-
-    <script type="text/javascript" src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}"></script>
-    <script src="{{ asset('book_lib/js/modernizr.custom.js') }}"></script>
-    <script src="{{ asset('book_lib/js/minicart.min.js') }}"></script>
-    <script src="{{ mix('js/add_book_to_form.js') }}"></script>
-    <script src="{{ asset('book_lib/js/easy-responsive-tabs.js') }}"></script>
-    <script src="{{ asset('book_lib/js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('book_lib/js/jquery.countup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/move-top.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/jquery.easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/bootstrap.js') }}"></script>
-</body>
-
-</html>
+@endsection

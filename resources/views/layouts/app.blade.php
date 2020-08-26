@@ -1,68 +1,41 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="utf-8">
+    <title>{{ trans('home.web_name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>{{ trans('message.web_name') }}</title>
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('book_lib/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('book_lib/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('book_lib/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('book_lib/css/easy-responsive-tabs.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('book_lib/css/flexslider.css') }}" rel="stylesheet" type="text/css" media="screen" />
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="">
-                    {{ trans('message.web_name') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    @include('auth.header')
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
+    @include('auth.login')
 
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ trans('login.login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ trans('login.register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+    @include('auth.register')
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ trans('login.logout') }}
-                                    </a>
+    @yield('content')
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    @include('auth.footer')
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <script type="text/javascript" src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('book_lib/js/modernizr.custom.js') }}"></script>
+    <script src="{{ asset('book_lib/js/imagezoom.js') }}"></script>
+    <script src="{{ asset('book_lib/js/minicart.min.js') }}"></script>
+    <script src="{{ mix('js/add_book_to_form.js') }}"></script>
+    <script src="{{ asset('book_lib/js/easy-responsive-tabs.js') }}"></script>
+    <script src="{{ asset('book_lib/js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('book_lib/js/jquery.countup.js') }}"></script>
+    <script src="{{ asset('book_lib/js/jquery.flexslider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('book_lib/js/move-top.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('book_lib/js/jquery.easing.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('book_lib/js/bootstrap.js') }}"></script>
 </body>
+
 </html>

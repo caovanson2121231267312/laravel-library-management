@@ -126,23 +126,29 @@
                             </li>
 
                             <li class="dropdown menu__item">
-                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.books') }} 
+                                <a href="" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.books') }} 
                                     <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu multi-column columns-3">
                                     <div class="agile_inner_drop_nav_info">
                                         <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-                                            <a href=""><img src="{{ asset('book_lib/images/top1.jpg') }}" alt=" " /></a>
+                                            <a href="{{ route('book.index') }}"><img src="{{ asset('book_lib/images/top1.jpg') }}" alt=" " /></a>
                                         </div>
 
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
+                                                @foreach ($categoriesLeft as $categoryLeft)
+                                                    <li><a href="{{ route('book.index') }}">{{ $categoryLeft->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
 
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
+                                                @foreach ($categoriesRight as $categoryRight)
+                                                    <li><a href="{{ route('book.index') }}">{{ $categoryRight->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
 

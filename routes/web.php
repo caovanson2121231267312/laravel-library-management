@@ -8,8 +8,10 @@ Route::get('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('books', 'BookController@index')->name('book.index');
 
+// Books
+Route::get('books', 'BookController@index')->name('book.index');
+Route::get('books/{book}', 'BookController@detail')->name('book_detail');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('home', 'AdminController@index')->name('admin.home');

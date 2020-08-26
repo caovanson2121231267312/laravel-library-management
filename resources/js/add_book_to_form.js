@@ -48,3 +48,10 @@ jQuery(document).ready(function($) {
         $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
     });
 });
+
+$(window).load(function() {
+	$('.flexslider').flexslider({
+		animation: "slide",
+		controlNav: "thumbnails"
+	});
+});
