@@ -3,10 +3,9 @@
 @section('content')
     <div class="page-head_agile_info_w3l">
         <div class="container">
-            <h3>{{ trans('message.books') }}</h3>
             <div class="services-breadcrumb">
                 <div class="agile_inner_breadcrumb">
-                    <ul class="w3_short">
+                    <ul class="w3_short book">
                         <li><a href="{{ route('home') }}">{{ trans('home.home') }}</a><i>|</i></li>
                         <li>{{ trans('message.books') }}</li>
                     </ul>

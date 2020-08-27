@@ -167,16 +167,20 @@
                                         <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
                                             <a href=""><img src="{{ asset('book_lib/images/top2.jpg') }}" alt=" " /></a>
                                         </div>
-                                        {{-- get category --}}
+
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href=""></a></li>
+                                                @foreach ($authorsLeft as $authorLeft)
+                                                    <li><a href="{{ route('author.index') }}">{{ $authorLeft->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
 
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href=""></a></li>
+                                                @foreach ($authorsRight as $authorRight)
+                                                    <li><a href="{{ route('author.index') }}">{{ $authorRight->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
 
@@ -185,33 +189,11 @@
                                 </ul>
                             </li>       
 
-                            <li class="dropdown menu__item">
-                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.publishers') }} 
-                                    <span class="caret"></span>
+                            <li class=" menu__item">
+                                <a class="menu__link" href="">
+                                    {{ trans('request.my_request') }}
                                 </a>
-
-                                <ul class="dropdown-menu multi-column columns-3">
-                                    <div class="agile_inner_drop_nav_info">
-                                        <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-                                            <a href=""><img src="{{ asset('book_lib/images/top3.jpg') }}" alt=" " /></a>
-                                        </div>
-                                        {{-- get category --}}
-                                        <div class="col-sm-3 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a href=""></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="col-sm-3 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a href=""></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ul>
-                            </li>   
+                            </li>
 
                             <li class=" menu__item">
                                 <a class="menu__link" href="">

@@ -13,6 +13,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('books', 'BookController@index')->name('book.index');
 Route::get('books/{book}', 'BookController@detail')->name('book_detail');
 
+//Authors
+Route::get('authors', 'AuthorController@index')->name('author.index');
+Route::get('authors/{author}', 'AuthorController@detail')->name('author_detail');
+
+//Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('home', 'AdminController@index')->name('admin.home');
     Route::resource('publishers', 'PublisherController');

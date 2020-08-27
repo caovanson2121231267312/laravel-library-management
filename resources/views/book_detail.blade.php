@@ -47,7 +47,7 @@
 
                 <div class="description mb-32px">
                     <span>{{ trans('home.written_by') }}</span>
-                    <a href="">{{ $book->author->name }}</a>
+                    <a href="{{ route('author_detail', $book->author->id) }}">{{ $book->author->name }}</a>
                 </div>
 
                 <div class="description mb-32px">

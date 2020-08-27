@@ -113,6 +113,7 @@
                         </div>
                     </div>
                 </div>
+                {{ $books->links() }}
             </div>
         </div>
     </div>

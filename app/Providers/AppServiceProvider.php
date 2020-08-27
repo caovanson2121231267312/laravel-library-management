@@ -54,6 +54,17 @@ class AppServiceProvider extends ServiceProvider
             ->take(config('book.number_of_column'))
             ->get();
 
+        $authorsLeft = Author::withCount('books')
+            ->orderBy('books_count', 'desc')
+            ->take(config('book.number_of_column'))
+            ->get();
+
+        $authorsRight = Author::withCount('books')
+            ->orderBy('books_count', 'desc')
+            ->skip(config('book.number_of_column'))
+            ->take(config('book.number_of_column'))
+            ->get();
+            
         View::share([
             'textBooks' => $textBooks, 
             'referenceBooks' => $referenceBooks,
@@ -61,6 +72,8 @@ class AppServiceProvider extends ServiceProvider
             'newspapers' => $newspapers,
             'categoriesLeft' => $categoriesLeft,
             'categoriesRight' => $categoriesRight,
+            'authorsLeft' => $authorsLeft,
+            'authorsRight' => $authorsRight,
         ]);
     }
 }
