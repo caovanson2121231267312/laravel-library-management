@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
@@ -27,13 +28,23 @@ class BookController extends Controller
         $this->category = $category;
         $this->author = $author;
         $this->publisher = $publisher;
+        $this->middleware('auth');
     } 
 
     public function index()
     {
-        $books = Book::latest()->paginate(config('const.five'));
+        $user = Auth::user();
 
-        return view('admin.book.index', compact('books'));
+        if ($user->role_id == config('const.admin')) {
+            $books = Book::latest()->paginate(config('const.five'));
+
+            return view('admin.book.index', compact('books'));
+        } else {
+            $books = Book::latest()->paginate(config('book.number_of_new_books'));
+
+            return view('book', compact('books'));
+        }
+
     }
 
     public function create()
@@ -107,5 +118,22 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('books.index');
+    }
+
+    public function detail($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+
+            return view('404');
+        }
+
+        $relatedBooks = Book::inRandomOrder()
+            ->where('category_id', $book->category_id)
+            ->take((config('book.number_of_related_books')))
+            ->get();
+
+        return view('book_detail', compact(['book', 'relatedBooks']));
     }
 }

@@ -30,5 +30,10 @@ return [
     'lib_info' => 'LIBRARY INFORMATION',
     'location' => 'LOCATION',
     'hot_authors' => 'HOT AUTHORS',
-    'copy' => '© 2017 Elite shoppy. All rights reserved | Design by W3layouts'
+    'copy' => '© 2017 Elite shoppy. All rights reserved | Design by W3layouts',
+    'written_by' => 'Written by',
+    'from' => 'From',
+    'book_in_now' => 'books in now',
+    'reviews' => 'Reviews',
+    'related_books' => 'Related Books',
 ];
