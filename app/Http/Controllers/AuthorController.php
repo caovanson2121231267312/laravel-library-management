@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Author;
+use App\Models\Book;
 use App\Http\Requests\AuthorRequest;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $authors = Author::latest()->paginate(config('const.five'));
+        $user = Auth::user();
 
-        return view('admin.author.index', compact('authors'));
+        if ($user->role_id == config('const.admin')) {
+            $authors = Author::latest()->paginate(config('const.five'));
+
+            return view('admin.author.index', compact('authors'));
+        } else {
+            $authors = Author::latest()->paginate(config('book.textbook_category_id'));
+
+            return view('author', compact('authors'));
+        }
     }
 
     public function create()
@@ -71,5 +86,17 @@ class AuthorController extends Controller
         $author->delete();
 
         return redirect()->route('authors.index');
+    }
+
+    public function detail($id)
+    {
+        try {
+            $author = Author::with('books')->find($id);
+        } catch (ModelNotFoundException $exception) {
+
+            return view('404');
+        }
+
+        return view('auth_detail', compact('author'));
     }
 }

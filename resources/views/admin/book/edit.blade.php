@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <label>{{ trans('message.category') }}</label>
                                     <select class="form-control select2" name="category_id">
-                                        <option selected="selected"></option>
+                                        <option selected="selected">{{ $book->category->name }}</option>
                                         {!! $categoryOption !!}
                                     </select>
                                 </div>
@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label>{{ trans('message.author') }}</label>
                                     <select class="form-control select2 {{ $errors->has('author_id') ? 'error' : '' }}" name="author_id">
-                                        <option></option>
+                                        <option selected="selected">{{ $book->author->name }}</option>
                                         @foreach ($authors as $author)
                                             <option value="{{ $author->id }}">
                                                 {{ $author->name }}
@@ -107,7 +107,7 @@
                                 <div class="form-group">
                                     <label>{{ trans('message.publisher') }}</label>
                                     <select class="form-control select2 {{ $errors->has('publisher_id') ? 'error' : '' }}" name="publisher_id">
-                                        <option></option>
+                                        <option selected="selected">{{ $book->publisher->name }}</option>
                                         @foreach ($publishers as $publishers)
                                             <option value="{{ $publishers->id }}">
                                                 {{ $publishers->name }}
