@@ -133,7 +133,7 @@ class BookController extends Controller
             ->where('category_id', $book->category_id)
             ->take((config('book.number_of_related_books')))
             ->get();
-
+        
         return view('book_detail', compact(['book', 'relatedBooks']));
     }
 }

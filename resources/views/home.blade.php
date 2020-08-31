@@ -31,24 +31,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product ">
+                                    <div class="item-info-product add-book-div">
                                         <h4><a href="{{ route('book_detail', $textBook->id) }}">{{ $textBook->title }}</a></h4>
 
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                            <form action="#" method="get">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value="" />
-                                                    <input type="hidden" name="item_name" value="{{ $textBook->title }}" />
-                                                    <input type="hidden" name="amount" value="1" />
-                                                    <input type="hidden" name="discount_amount" value="1" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value="" />
-                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                        @if (Auth::check())
+                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                                <button class="add-book" data-id="{{ $textBook->id }}">
+                                                    {{ trans('home.add_to_form') }}
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -71,24 +63,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product ">
+                                    <div class="item-info-product add-book-div">
                                         <h4><a href="{{ route('book_detail', $referenceBook->id) }}">{{ $referenceBook->title }}</a></h4>
 
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                            <form action="#" method="get">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value="" />
-                                                    <input type="hidden" name="item_name" value="{{ $referenceBook->title }}" />
-                                                    <input type="hidden" name="amount" value="1" />
-                                                    <input type="hidden" name="discount_amount" value="1" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value="" />
-                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                        @if (Auth::check())
+                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                                <button class="add-book" data-id="{{ $referenceBook->id }}">
+                                                    {{ trans('home.add_to_form') }}
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -111,24 +95,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product ">
+                                    <div class="item-info-product add-book-div">
                                         <h4><a href="{{ route('book_detail', $comic->id) }}">{{ $comic->title }}</a></h4>
 
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                            <form action="#" method="get">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value="" />
-                                                    <input type="hidden" name="item_name" value="{{ $comic->title }}" />
-                                                    <input type="hidden" name="amount" value="1" />
-                                                    <input type="hidden" name="discount_amount" value="1" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value="" />
-                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                        @if (Auth::check())
+                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                                <button class="add-book" data-id="{{ $comic->id }}">
+                                                    {{ trans('home.add_to_form') }}
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -151,24 +127,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product ">
+                                    <div class="item-info-product add-book-div">
                                         <h4><a href="{{ route('book_detail', $newspaper->id) }}">{{ $newspaper->title }}</a></h4>
 
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                            <form action="#" method="get">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value="" />
-                                                    <input type="hidden" name="item_name" value="{{ $newspaper->title }}" />
-                                                    <input type="hidden" name="amount" value="1" />
-                                                    <input type="hidden" name="discount_amount" value="1" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value="" />
-                                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                        @if (Auth::check())
+                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+                                                <button class="add-book" data-id="{{ $newspaper->id }}">
+                                                    {{ trans('home.add_to_form') }}
+                                                </button>
+                                            </div>    
+                                        @endif
                                     </div>
                                 </div>
                             </div>
