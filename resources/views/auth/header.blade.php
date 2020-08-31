@@ -158,20 +158,20 @@
                             </li>           
                             
                             <li class="dropdown menu__item">
-                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.authors') }} 
+                                <a href="" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.authors') }} 
                                     <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu multi-column columns-3">
                                     <div class="agile_inner_drop_nav_info">
                                         <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-                                            <a href=""><img src="{{ asset('book_lib/images/top2.jpg') }}" alt=" " /></a>
+                                            <a href="{{ route('author.index') }}"><img src="{{ asset('book_lib/images/top2.jpg') }}" alt=" " /></a>
                                         </div>
 
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
                                                 @foreach ($authorsLeft as $authorLeft)
-                                                    <li><a href="{{ route('author.index') }}">{{ $authorLeft->name }}</a></li>
+                                                    <li><a href="{{ route('author_detail', $authorLeft->id) }}">{{ $authorLeft->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -179,7 +179,7 @@
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
                                                 @foreach ($authorsRight as $authorRight)
-                                                    <li><a href="{{ route('author.index') }}">{{ $authorRight->name }}</a></li>
+                                                    <li><a href="{{ route('author_detail', $authorRight->id) }}">{{ $authorRight->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -187,13 +187,15 @@
                                         <div class="clearfix"></div>
                                     </div>
                                 </ul>
-                            </li>       
-
-                            <li class=" menu__item">
-                                <a class="menu__link" href="">
-                                    {{ trans('request.my_request') }}
-                                </a>
-                            </li>
+                            </li>   
+                                
+                            @if (Auth::check())
+                                <li class=" menu__item">
+                                    <a class="menu__link" href="{{ route('requests.index') }}">
+                                        {{ trans('request.my_request') }}
+                                    </a>
+                                </li>
+                            @endif
 
                             <li class=" menu__item">
                                 <a class="menu__link" href="">
@@ -206,17 +208,17 @@
             </nav>
         </div>
 
-        <div class="top_nav_right">
-            <div class="wthreecartaits wthreecartaits2 cart cart box_1">
-                <form action="#" method="post" class="last">
-                    <input type="hidden" name="cmd" value="_cart">
-                    <input type="hidden" name="display" value="1">
-                    <button class="w3view-cart" type="submit" name="submit" value="">
-                        <i class="fa fa-wpforms" aria-hidden="true"></i>
-                    </button>
-                </form>
+        @if (Auth::check())
+            <div class="top_nav_right">
+                <div class="wthreecartaits wthreecartaits2 cart cart box_1">
+                    <a>
+                        <button  class="w3view-cart chooseBooks" type="submit" name="submit" data-toggle="modal" data-target="#borrowBookForm">
+                            <i class="fa fa-wpforms" aria-hidden="true"></i>
+                        </button>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
         
         <div class="clearfix"></div>
     </div>

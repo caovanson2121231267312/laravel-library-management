@@ -11,6 +11,8 @@
     <link href="{{ asset('book_lib/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('book_lib/css/easy-responsive-tabs.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('book_lib/css/flexslider.css') }}" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{{ asset('admin-lte/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin-lte/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -20,11 +22,13 @@
 
     @include('auth.register')
 
+    @include('borrow_book_form')
+
     @yield('content')
 
     @include('auth.footer')
 
-    <script type="text/javascript" src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('book_lib/js/modernizr.custom.js') }}"></script>
     <script src="{{ asset('book_lib/js/imagezoom.js') }}"></script>
     <script src="{{ asset('book_lib/js/minicart.min.js') }}"></script>
@@ -33,9 +37,15 @@
     <script src="{{ asset('book_lib/js/jquery.waypoints.min.js') }}"></script>
     <script src="{{ asset('book_lib/js/jquery.countup.js') }}"></script>
     <script src="{{ asset('book_lib/js/jquery.flexslider.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/move-top.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/jquery.easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('book_lib/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('book_lib/js/move-top.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('book_lib/js/jquery.easing.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('book_lib/js/bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin-lte/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('admin-lte/plugins/toastr/toastr.min.js') }}"></script>
 </body>
 
 </html>

@@ -62,19 +62,9 @@
 
                 <div class="occasion-cart">
                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                        <form action="#" method="post">
-                            <fieldset>
-                                <input type="hidden" name="cmd" value="_cart" />
-                                <input type="hidden" name="add" value="1" />
-                                <input type="hidden" name="business" value="" />
-                                <input type="hidden" name="item_name" value="{{ $book->title }}" />
-                                <input type="hidden" name="amount" value="1" />
-                                <input type="hidden" name="discount_amount" value="1" />
-                                <input type="hidden" name="return" value=" " />
-                                <input type="hidden" name="cancel_return" value="" />
-                                <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                            </fieldset>
-                        </form>
+                        <button class="add-book" data-id="{{ $book->id }}">
+                            {{ trans('home.add_to_form') }}
+                        </button>
                     </div>
 
                 </div>
@@ -148,23 +138,13 @@
                                 </div>
                             </div>
 
-                            <div class="item-info-product ">
+                            <div class="item-info-product add-book-div">
                                 <h4><a href="{{ route('book_detail', $relatedBook->id) }}">{{ $relatedBook->title }}</a></h4>
 
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                    <form action="#" method="get">
-                                        <fieldset>
-                                            <input type="hidden" name="cmd" value="_cart" />
-                                            <input type="hidden" name="add" value="1" />
-                                            <input type="hidden" name="business" value="" />
-                                            <input type="hidden" name="item_name" value="{{ $relatedBook->title }}" />
-                                            <input type="hidden" name="amount" value="1" />
-                                            <input type="hidden" name="discount_amount" value="1" />
-                                            <input type="hidden" name="return" value=" " />
-                                            <input type="hidden" name="cancel_return" value="" />
-                                            <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                        </fieldset>
-                                    </form>
+                                    <button class="add-book" data-id="{{ $relatedBook->id }}">
+                                        {{ trans('home.add_to_form') }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
