@@ -1,13 +1,18 @@
 $(document).ready(function() {
 	var data = localStorage.getItem('list');
+	var dataId = localStorage.getItem('listId');
 	var list = [];
+	var listId = [];
 
 	if (data) {
 		list = JSON.parse(data);
-		console.log(list)
 		for (let i of list) {
 			$(`.add-book[data-id=${i.id}]`).attr('disabled', 'disabled');
 		}
+	}
+
+	if (dataId) {
+		listId = dataId.split(',');
 	}
 
 	$('.add-book-div').each(function() {
@@ -18,9 +23,12 @@ $(document).ready(function() {
 			var bookData = {};
 			$(this).attr('disabled', 'disabled');
 			bookData.id = $(this).data('id');
-			bookData.title = context.find('a').html();
+			bookData.title = context.find('.book-name').html();
+			bookData.image = context.find('img').attr('src');
 			list.push(bookData);
+			listId = list.map(x => x.id);
 			localStorage.setItem('list', JSON.stringify(list));
+			localStorage.setItem('listId', listId);
 		})
 	})
 	
@@ -47,12 +55,60 @@ $(document).ready(function() {
 			var book = document.getElementById(id);
 			book.remove();
 			list.splice(list.findIndex(item => item.id === id), 1);
+			listId = list.map(x => x.id);
 			localStorage.setItem('list', JSON.stringify(list));
+			localStorage.setItem('listId', listId);
 		})  
 	})    
 
+	$('.log-out, #send').click(function() {
+		localStorage.removeItem('list');
+		localStorage.removeItem('listId');
+	})
+
+	$(function() {
+		$('.list-selected-books').html('');
+		for (let i of list) {
+			$('.list-selected-books').append(`
+				<div class="col-md-3 product-men add-book-div">
+					<div class="men-pro-item simpleCart_shelfItem">
+						<div class="men-thumb-item">
+							<img src="${i.image}" alt="" class="pro-image-front">
+							<img src="${i.image}" alt="" class="pro-image-back">
+							<div class="men-cart-pro">
+								<div class="inner-men-cart-pro">
+									<a href="/books/${i.id}" class="link-product-add-cart">QUICK VIEW</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="item-info-product">
+							<h4><a class="book-name" href="/books/${i.id}">${i.title}</a></h4>
+
+							<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+								<button class="add-book" disabled data-id="${i.id}">
+									ADD TO FORM
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			`)
+		}
+	})
+
+	$('.number_of_borrow_books').append(`
+		<input type="text" name="number_of_borrow_books" disabled value="${Object.keys(list).length}">
+		<label class="top-label">Number of borrow books</label>
+		<span></span>
+	`)
+
+	$('.display-none').append(`
+		<input type="text" name="book_id" value="${listId}">
+	`)
+
 	$(function () {
-		$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+		$('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
 
 		$('[data-mask]').inputmask()
 	

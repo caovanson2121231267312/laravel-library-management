@@ -7,7 +7,7 @@
 
             <div class="modal-body modal-body-sub_agile">
                 <div class="col-md-12 modal_body_left modal_body_left1">
-                    <h3 class="agileinfo_sign">{{ trans('request.selected_books') }}</h3>
+                    <h3 class="agileinfo_sign text-center">{{ trans('request.selected_books') }}</h3>
 					<div class="list-group list-group-alternate listBooks"> 
                     </div>
                 </div>

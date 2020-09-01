@@ -19,7 +19,7 @@
                 <div class="resp-tabs-container">
                     <div class="tab1">
                         @foreach ($textBooks as $textBook)
-                            <div class="col-md-3 product-men">
+                            <div class="col-md-3 product-men add-book-div">
                                 <div class="men-pro-item simpleCart_shelfItem">
                                     <div class="men-thumb-item">
                                         <img src="{{ $textBook->image }}" alt="" class="pro-image-front">
@@ -31,8 +31,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product add-book-div">
-                                        <h4><a href="{{ route('book_detail', $textBook->id) }}">{{ $textBook->title }}</a></h4>
+                                    <div class="item-info-product">
+                                        <h4><a class="book-name" href="{{ route('book_detail', $textBook->id) }}">{{ $textBook->title }}</a></h4>
 
                                         @if (Auth::check())
                                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
@@ -51,7 +51,7 @@
 
                     <div class="tab2">
                         @foreach ($referenceBooks as $referenceBook)
-                            <div class="col-md-3 product-men">
+                            <div class="col-md-3 product-men add-book-div">
                                 <div class="men-pro-item simpleCart_shelfItem">
                                     <div class="men-thumb-item">
                                         <img src="{{ $referenceBook->image }}" alt="" class="pro-image-front">
@@ -63,8 +63,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product add-book-div">
-                                        <h4><a href="{{ route('book_detail', $referenceBook->id) }}">{{ $referenceBook->title }}</a></h4>
+                                    <div class="item-info-product">
+                                        <h4><a class="book-name" href="{{ route('book_detail', $referenceBook->id) }}">{{ $referenceBook->title }}</a></h4>
 
                                         @if (Auth::check())
                                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
@@ -83,7 +83,7 @@
 
                     <div class="tab3">
                         @foreach ($comics as $comic)
-                            <div class="col-md-3 product-men">
+                            <div class="col-md-3 product-men add-book-div">
                                 <div class="men-pro-item simpleCart_shelfItem">
                                     <div class="men-thumb-item">
                                         <img src="{{ $comic->image }}" alt="" class="pro-image-front">
@@ -95,8 +95,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product add-book-div">
-                                        <h4><a href="{{ route('book_detail', $comic->id) }}">{{ $comic->title }}</a></h4>
+                                    <div class="item-info-product">
+                                        <h4><a class="book-name" href="{{ route('book_detail', $comic->id) }}">{{ $comic->title }}</a></h4>
 
                                         @if (Auth::check())
                                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
@@ -115,7 +115,7 @@
 
                     <div class="tab4">
                         @foreach ($newspapers as $newspaper)
-                            <div class="col-md-3 product-men">
+                            <div class="col-md-3 product-men add-book-div">
                                 <div class="men-pro-item simpleCart_shelfItem">
                                     <div class="men-thumb-item">
                                         <img src="{{ $newspaper->image }}" alt="" class="pro-image-front">
@@ -127,8 +127,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-info-product add-book-div">
-                                        <h4><a href="{{ route('book_detail', $newspaper->id) }}">{{ $newspaper->title }}</a></h4>
+                                    <div class="item-info-product">
+                                        <h4><a class="book-name" href="{{ route('book_detail', $newspaper->id) }}">{{ $newspaper->title }}</a></h4>
 
                                         @if (Auth::check())
                                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">

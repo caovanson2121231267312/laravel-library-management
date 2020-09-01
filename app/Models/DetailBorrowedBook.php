@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailBorrowedBook extends Model
 {
+    protected $fillable = [
+        'borrowed_book_id',
+        'book_id',
+    ];
+
+    public $timestamps = false;
+
     public function borrowedBook() 
     {
         return $this->belongsTo(BorrowedBook::class);

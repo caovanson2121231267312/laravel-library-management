@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('request_form')
+
 <div class="page-head_agile_info_w3l">
     <div class="container">
         <div class="services-breadcrumb">
@@ -16,42 +19,96 @@
 
 <div class="banner-bootom-w3-agileits">
     <div class="container">
-        <div class="col-md-6 contact-form test">
-            <h4 class="white-w3ls">{{ trans('request.borrow_books_form') }}</h4>
+        <div class="grid_3 grid_5 wthree">
+            <div class="col-md-12 agileits-w3layouts">
+                <div>
+                    <h3 class="float-left">{{ trans('request.my_request') }}</h3>
 
-            <form action="#" method="post">
-                <div class="styled-input agile-styled-input-top">
-                    <input type="text" name="name" value="{{ $user->name }}">
-                    <label>{{ trans('login.name') }}</label>
-                    <span></span>
+                    <a href="#" class="float-right" data-toggle="modal" data-target="#requestForm">
+                        <i class="fa fa-plus"></i>
+                    </a>
+
+                    <div class="clearfix"> </div>
                 </div>
-                <div class="styled-input">
-                    <input type="text" name="email" value="{{ $user->email }}">
-                    <label>{{ trans('login.email') }}</label>
-                    <span></span>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">{{ trans('request.id') }}</th>
+                            <th class="text-center">{{ trans('request.borrow_at') }}</th>
+                            <th class="text-center">{{ trans('request.return_at') }}</th>
+                            <th class="text-center">{{ trans('request.count') }}</th>
+                            <th class="text-center">{{ trans('request.status') }}</th>
+                            <th class="text-center">{{ trans('request.view') }}</th>
+                            <th class="text-center">{{ trans('request.delete') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($formRequests as $key => $formRequest)
+                            <tr>
+                                <td class="text-center">{{ $key + 1 }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($formRequest->borrowed_at)->format('d/m/Y') }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($formRequest->returned_at)->format('d/m/Y') }}</td>
+                                <td class="text-center">{{ $formRequest->detailBorrowedBooks->count() }}</td>
+                                @switch ($formRequest->status)
+                                    @case (config('request.pending'))
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">
+                                                {{ trans('request.pending') }}
+                                            </span>   
+                                        </td>
+                                        @break
+                                    @case(config('request.approve'))
+                                        <td class="text-center">
+                                            <span class="badge badge-success">
+                                               {{ trans('request.approved') }}
+                                            </span>   
+                                        </td>                                       
+                                        @break 
+                                    @case (config('request.reject'))
+                                        <td class="text-center">
+                                            <span class="badge badge-danger">
+                                                {{ trans('request.rejected') }}
+                                            </span>           
+                                        </td>                                     
+                                        @break                                       
+                                    @default                                       
+                                @endswitch
+
+                                <td class="text-center"><a class="badge badge-warning"><i class="fa fa-eye"></i></a></td>
+
+                                @if ($formRequest->status == config('request.reject') || $formRequest->status == config('request.approve'))
+                                    <td class="text-center"><a class="badge badge-success edit-disabled"><i class="fa fa-trash-o"></i></a></td>
+                                @else
+                                    <td class="text-center">
+                                        <form method="POST" action="{{ route('requests.destroy', $formRequest->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="badge badge-danger border-none">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endif                           
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>                                   
+                <div class="text-center">
+                    {{ $formRequests->links() }}
                 </div>
-                <div class="styled-input">
-                    <input type="text" name="phone_number" value="{{ $user->phone_number }}">
-                    <label>{{ trans('login.phone_number') }}</label>
-                    <span></span>
-                </div>
-                <div class="styled-input">
-                    <input type="text" name="phone_number" required="">
-                    <label>{{ trans('request.number_of_borrow_books') }}</label>
-                    <span></span>
-                </div>
-                <div class="styled-input">
-                    <input type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="borrowed_at">
-                    <label>{{ trans('request.borrow_at') }}</label>
-                    <span></span>
-                </div>
-                <div class="styled-input">
-                    <input type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="returned_at">
-                    <label>{{ trans('request.return_at') }}</label>
-                    <span></span>
-                </div>
-                <input type="submit" value="SEND">
-            </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>	 
+
+        <div class="products-right text-center">
+            <h5>
+                {{ trans('request.selected_books') }}
+            </h5>
+        </div>
+
+        <div class="single-pro list-selected-books">
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>

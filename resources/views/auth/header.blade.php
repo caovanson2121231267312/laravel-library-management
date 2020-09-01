@@ -19,7 +19,7 @@
 
             @if (Auth::check())
                 <li>
-                    <a href="{{ route('logout') }}" role="button">
+                    <a href="{{ route('logout') }}" role="button" class="log-out">
                         <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i>
                         {{ trans('login.logout') }}
                     </a>
