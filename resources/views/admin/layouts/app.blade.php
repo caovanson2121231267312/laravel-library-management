@@ -19,6 +19,8 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
+    @include('sweetalert::alert')
+
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -121,7 +123,7 @@
                         </li>
 
                         <li class="nav-item mt-4">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.request') }}" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     {{ trans('request.request_management') }}

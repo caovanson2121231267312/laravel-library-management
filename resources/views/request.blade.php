@@ -75,7 +75,7 @@
                                     @default                                       
                                 @endswitch
 
-                                <td class="text-center"><a class="badge badge-warning"><i class="fa fa-eye"></i></a></td>
+                                <td class="text-center"><a class="badge badge-warning text-black"><i class="fa fa-eye"></i></a></td>
 
                                 @if ($formRequest->status == config('request.reject') || $formRequest->status == config('request.approve'))
                                     <td class="text-center"><a class="badge badge-success edit-disabled"><i class="fa fa-trash-o"></i></a></td>
@@ -103,13 +103,33 @@
 
         <div class="products-right text-center">
             <h5>
-                {{ trans('request.selected_books') }}
+                {{ trans('request.borrowing_books') }}
             </h5>
         </div>
 
-        <div class="single-pro list-selected-books">
+        <div class="single-pro">
+            @foreach ($borrowingBooks as $borrowingBook)
+                <div class="col-md-3 product-men add-book-div">
+                    <div class="men-pro-item simpleCart_shelfItem">
+                        <div class="men-thumb-item">
+                            <img src="{{ $borrowingBook->image }}" alt="" class="pro-image-front">
+                            <img src="{{ $borrowingBook->image }}" alt="" class="pro-image-back">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href="{{ route('book_detail', $borrowingBook->id) }}" class="link-product-add-cart">{{ trans('home.quick_view') }}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item-info-product">
+                            <h4><a class="book-name" href="{{ route('book_detail', $borrowingBook->id) }}">{{ $borrowingBook->title }}</a></h4>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
             <div class="clearfix"></div>
-        </div>
+        </div>                
     </div>
 </div>
 @endsection

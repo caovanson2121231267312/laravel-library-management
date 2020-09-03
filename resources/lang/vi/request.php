@@ -26,4 +26,5 @@ return [
     'error' => 'Lỗi',
     'ok' => 'Đạt',
     'not_ok' => 'Không đạt',
+    'borrowing_books' => 'Sách đang mượn',
 ];

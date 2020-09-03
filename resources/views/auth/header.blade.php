@@ -191,7 +191,7 @@
                                 
                             @if (Auth::check())
                                 <li class=" menu__item">
-                                    <a class="menu__link" href="{{ route('requests.index') }}">
+                                    <a class="menu__link" href="{{ route('user.index', Auth::id()) }}">
                                         {{ trans('request.my_request') }}
                                     </a>
                                 </li>
