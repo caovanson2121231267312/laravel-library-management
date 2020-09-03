@@ -26,4 +26,5 @@ return [
     'error' => 'Error',
     'ok' => 'OK',
     'not_ok' => 'Not OK',
+    'borrowing_books' => 'Borrowing Books',
 ];

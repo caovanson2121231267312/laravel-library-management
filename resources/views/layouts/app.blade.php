@@ -28,6 +28,8 @@
 
     @include('auth.footer')
 
+    @include('sweetalert::alert')
+
     <script src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('book_lib/js/modernizr.custom.js') }}"></script>
     <script src="{{ asset('book_lib/js/imagezoom.js') }}"></script>

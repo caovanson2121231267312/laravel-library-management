@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'zero' => 0,
     //paginate
     'five' => 5,
     //roles
