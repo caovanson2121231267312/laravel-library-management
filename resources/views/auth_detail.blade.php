@@ -79,7 +79,7 @@
             <div class="w3_agile_latest_arrivals">
                 <h3 class="wthree_text_info">{{ trans('message.books') }}</h3>
                 @foreach ($author->books as $book)
-                <div class="col-md-3 product-men">
+                <div class="col-md-3 product-men add-book-div">
                     <div class="men-pro-item simpleCart_shelfItem">
                         <div class="men-thumb-item">
                             <img src="{{ $book->image }}" alt="" class="pro-image-front">
@@ -96,9 +96,9 @@
                             <h4><a href="{{ route('book_detail', $book->id) }}">{{ $book->title }}</a></h4>
 
                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                <a href="{{ route('add_to_form', $book->id) }}">
-                                    <input type="submit" name="submit" value="{{ trans('home.add_to_form') }}" class="button" />
-                                </a>
+                                <button class="add-book" data-id="{{ $book->id }}">
+                                    {{ trans('home.add_to_form') }}
+                                </button>
                             </div>
                         </div>
                     </div>

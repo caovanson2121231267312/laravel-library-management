@@ -18,7 +18,7 @@
         <div class="container">
             <div class="single-pro">
                 @foreach ($books as $book)
-                    <div class="col-md-3 product-men">
+                    <div class="col-md-3 product-men add-book-div">
                         <div class="men-pro-item simpleCart_shelfItem">
                             <div class="men-thumb-item">
                                 <img src="{{ $book->image }}" alt="" class="pro-image-front">
@@ -30,8 +30,8 @@
                                 </div>
                             </div>
 
-                            <div class="item-info-product add-book-div">
-                                <h4><a href="{{ route('book_detail', $book->id) }}">{{ $book->title }}</a></h4>
+                            <div class="item-info-product">
+                                <h4><a class="book-name" href="{{ route('book_detail', $book->id) }}">{{ $book->title }}</a></h4>
 
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
                                     <button class="add-book" data-id="{{ $book->id }}">

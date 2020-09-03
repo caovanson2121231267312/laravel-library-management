@@ -18,7 +18,7 @@ Route::get('authors', 'AuthorController@index')->name('author.index');
 Route::get('authors/{author}', 'AuthorController@detail')->name('author_detail');
 
 //Borrowed book
-Route::get('requests', 'RequestController@index')->name('requests.index');
+Route::resource('requests', 'RequestController');
 
 //Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
@@ -27,4 +27,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('authors', 'AuthorController');
     Route::resource('categories', 'CategoryController');
     Route::resource('books', 'BookController');
+    Route::get('requests', 'RequestController@index')->name('admin.request');
 });
