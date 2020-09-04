@@ -36,4 +36,8 @@ return [
     'book_in_now' => 'sách đang sẵn có',
     'reviews' => 'Nhận xét',
     'related_books' => 'Sách liên quan',
+    'new_requests' => 'Yêu cầu mới',
+    'view_all_requests' => 'Xem toàn bộ yêu cầu',
+    'recently_add_books' => 'Sách mới thêm vào',
+    'view_all_books' => 'Xem toàn bộ sách',
 ];

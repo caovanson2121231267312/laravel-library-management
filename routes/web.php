@@ -12,6 +12,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // Books
 Route::get('books', 'BookController@index')->name('book.index');
 Route::get('books/{book}', 'BookController@detail')->name('book_detail');
+Route::get('like/{book}', 'BookController@like')->name('like');
+Route::get('unlike/{book}', 'BookController@unlike')->name('unlike');
 
 //Authors
 Route::get('authors', 'AuthorController@index')->name('author.index');

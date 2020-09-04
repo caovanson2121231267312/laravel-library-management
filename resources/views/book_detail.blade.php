@@ -32,17 +32,32 @@
                 <h3 class="mb-32px book-name">{{ $book->title }}</h3>
                 <div class="rating1 mb-32px">
                     <span class="starRating">
-                        <input id="rating5" type="radio" name="rating" value="">
-                        <label for="rating5"></label>
-                        <input id="rating4" type="radio" name="rating" value="">
-                        <label for="rating4"></label>
-                        <input id="rating3" type="radio" name="rating" value="" checked="">
-                        <label for="rating3"></label>
-                        <input id="rating2" type="radio" name="rating" value="">
-                        <label for="rating2"></label>
-                        <input id="rating1" type="radio" name="rating" value="">
-                        <label for="rating1"></label>
+                        <input id="rating5" type="radio" name="rating" checked>
+                        <label for="rating5" data-id="5" class="test"></label>
+                        <input id="rating4" type="radio" name="rating">
+                        <label for="rating4" data-id="4" class="test"></label>
+                        <input id="rating3" type="radio" name="rating">
+                        <label for="rating3" data-id="3" class="test"></label>
+                        <input id="rating2" type="radio" name="rating">
+                        <label for="rating2" data-id="2" class="test"></label>
+                        <input id="rating1" type="radio" name="rating">
+                        <label for="rating1" data-id="1" class="test"></label>
                     </span>
+                </div>
+
+                <div class="description mb-32px">
+                    <span class="mr-20">
+                        <a href="{{ route('like', $book->id) }}">
+                            <i class="fas fa-thumbs-up text-black"></i> 
+                        </a>
+                        {{ $countLike->count() }}                 
+                    </span> 
+                    <span>
+                        <a href="{{ route('unlike', $book->id) }}">
+                            <i class="fas fa-thumbs-down text-black"></i>
+                        </a>
+                        {{ $countUnlike->count() }}  
+                    </span> 
                 </div>
 
                 <div class="description mb-32px">

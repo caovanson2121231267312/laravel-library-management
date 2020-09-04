@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper">  
     <div class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="card mt-5">
+                <div class="card col-md-12 mt-5">
                     <div class="card-header">
                         <nav class="navbar navbar-expand navbar-white navbar-light">
                             <ul class="navbar-nav">
@@ -43,61 +43,43 @@
 
                     <div class="card-body">
                         <div class="jsgrid">
-                            <div class="jsgrid-grid-header">
-                                <table class="jsgrid-table">
-                                    <thead>
-                                        <tr class="row jsgrid-header-row">
-                                            <th
-                                                class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable col-md-1">
-                                                {{ trans('message.id') }}
-                                            </th>
-                                            <th
-                                                class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable col-md-3">
-                                                {{ trans('message.name') }}
-                                            </th>
-                                            <th
-                                                class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable col-md-3">
-                                                {{ trans('message.email') }}
-                                            </th>
-                                            <th
-                                                class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable col-md-3">
-                                                {{ trans('message.address') }}
-                                            </th>
-                                            <th
-                                                class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable col-md-2">
-                                                {{ trans('message.actions') }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($publishers as $publisher)
-                                        <tr class="row jsgrid-row">
-                                            <td class="jsgrid-cell jsgrid-align-center col-md-1">{{ $publisher->id }}
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr class="row">
+                                        <th class="text-center col-md-1">{{ trans('request.id') }}</th>
+                                        <th class="text-center col-md-3">{{ trans('message.name') }}</th>
+                                        <th class="text-center col-md-3">{{ trans('message.email') }}</th>
+                                        <th class="text-center col-md-3">{{ trans('message.address') }}</th>
+                                        <th class="text-center col-md-1">{{ trans('request.edit') }}</th>
+                                        <th class="text-center col-md-1">{{ trans('request.delete') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($publishers as $key => $publisher)
+                                        <tr class="row">
+                                            <td class="text-center col-md-1">{{ $key + 1 }}</td>
+                                            <td class="col-md-3">{{ $publisher->name }}</td>
+                                            <td class="col-md-3">{{ $publisher->email }}</td>
+                                            <td class="col-md-3">{{ $publisher->address }}</td>
+                                            <td class="text-center col-md-1">
+                                                <a class="badge badge-primary text-white" href="{{ route('publishers.edit', $publisher->id) }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </td>
-                                            <td class="jsgrid-cell col-md-3">{{ $publisher->name }}</td>
-                                            <td class="jsgrid-cell col-md-3">{{ $publisher->email }}</td>
-                                            <td class="jsgrid-cell col-md-3">{{ $publisher->address }}</td>
-                                            <td class="jsgrid-cell jsgrid-align-center col-md-2">
-                                                <div class="custom-control-inline">
-                                                    <a class="btn btn-primary px-1 ml-2"
-                                                        href="{{ route('publishers.edit', $publisher->id) }}">
-                                                        <i class="fas fa-edit px-3"></i>
-                                                    </a>
-                                                    <form method="POST"
-                                                        action="{{ route('publishers.destroy', $publisher->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger px-1 ml-2">
-                                                            <i class="fas fa-trash-alt px-3"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                            <td class="text-center col-md-1">
+                                                <form method="POST"
+                                                    action="{{ route('publishers.destroy', $publisher->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="badge badge-danger text-white border-none">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                    @endforeach
+                                </tbody>
+                            </table>  
                         </div>
                     </div>
                 </div>
