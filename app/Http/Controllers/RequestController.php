@@ -47,8 +47,8 @@ class RequestController extends Controller
         $borrowingBooks = collect([]);
         $formApproves = BorrowedBook::with('detailBorrowedBooks')
             ->where([
-                'user_id' => Auth::id(),
-                'status' => config('request.approve'),
+                ['user_id', Auth::id()],
+                ['status', config('request.approve')],
             ])
             ->get();
 
@@ -112,7 +112,7 @@ class RequestController extends Controller
         
         $formRequest->delete();
 
-        return redirect()->route('user.index', Auth::id())->withSuccessTitle(trans('request.success'));;
+        return redirect()->route('user.index', Auth::id())->withSuccessTitle(trans('request.success'));
     }
 
     public function check($id)
@@ -131,12 +131,12 @@ class RequestController extends Controller
         //check count borrowing books > 10
         $approveRequests = BorrowedBook::withCount('detailBorrowedBooks')
             ->where([
-                'user_id' => $check['user_id'],
-                'status' => config('request.approve'),
+                ['user_id', $check['user_id']],
+                ['status', config('request.approve')],
             ])
             ->orWhere([
-                'user_id' => $check['user_id'],
-                'status' => config('request.pending'),
+                ['user_id', $check['user_id']],
+                ['status', config('request.pending')],
             ])
             ->get();
         $count = config('const.zero');

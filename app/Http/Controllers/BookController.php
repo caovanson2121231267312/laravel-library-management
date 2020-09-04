@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
 use App\Models\Publisher;
+use App\Models\Like;
 use App\Http\Requests\BookRequest;
 use App\Components\Recusive;
 
@@ -123,17 +124,81 @@ class BookController extends Controller
     public function detail($id)
     {
         try {
-            $book = Book::findOrFail($id);
+            $book = Book::withCount('likes')->find($id);
         } catch (ModelNotFoundException $exception) {
 
             return view('404');
         }
+
+        $countLike = Like::where([
+            ['book_id', $id],
+            ['status', config('const.like')]
+        ])->get();
+
+        $countUnlike = Like::where([
+            ['book_id', $id],
+            ['status', config('const.unlike')]
+        ])->get();
 
         $relatedBooks = Book::inRandomOrder()
             ->where('category_id', $book->category_id)
             ->take((config('book.number_of_related_books')))
             ->get();
         
-        return view('book_detail', compact(['book', 'relatedBooks']));
+        return view('book_detail', compact(['book', 'relatedBooks', 'countLike', 'countUnlike']));
+    }
+
+    public function like($id)
+    {
+        $check = Like::where([
+            ['user_id', Auth::id()],
+            ['book_id', $id],
+        ])->first();
+        
+        if ($check == null) {
+            $data = [
+                'user_id' => Auth::id(),
+                'book_id' => $id,
+                'status' => config('const.like'),
+            ];    
+
+            Like::create($data);
+        } elseif ($check['status'] == config('const.like')) {
+
+            $check->delete();
+        } elseif ($check['status'] == config('const.unlike')) {
+            $check['status'] = config('const.like');
+
+            $check->update();
+        }
+
+        return redirect()->route('book_detail', $id);
+    }
+
+    public function unlike($id)
+    {
+        $check = Like::where([
+            ['user_id', Auth::id()],
+            ['book_id', $id],
+        ])->first();
+        
+        if ($check == null) {
+            $data = [
+                'user_id' => Auth::id(),
+                'book_id' => $id,
+                'status' => config('const.unlike'),
+            ];    
+
+            Like::create($data);
+        } elseif ($check['status'] == config('const.unlike')) {
+
+            $check->delete();
+        } elseif ($check['status'] == config('const.like')) {
+            $check['status'] = config('const.unlike');
+            
+            $check->update();
+        }
+
+        return redirect()->route('book_detail', $id);
     }
 }

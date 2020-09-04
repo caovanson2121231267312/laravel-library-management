@@ -36,4 +36,8 @@ return [
     'book_in_now' => 'books in now',
     'reviews' => 'Reviews',
     'related_books' => 'Related Books',
+    'new_requests' => 'New Requests',
+    'view_all_requests' => 'View All Requests',
+    'recently_add_books' => 'Recently Added Books',
+    'view_all_books' => 'View All Books',
 ];

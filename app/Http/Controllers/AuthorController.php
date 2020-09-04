@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Author;
 use App\Models\Book;
 use App\Http\Requests\AuthorRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthorController extends Controller
 {
@@ -20,6 +21,10 @@ class AuthorController extends Controller
         $user = Auth::user();
 
         if ($user->role_id == config('const.admin')) {
+            if (session('success_title')) {
+                toast(session('success_title'), 'success');
+            }
+
             $authors = Author::latest()->paginate(config('const.five'));
 
             return view('admin.author.index', compact('authors'));
@@ -47,7 +52,7 @@ class AuthorController extends Controller
 
         Author::create($author);
 
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
 
     public function edit($id)
@@ -78,14 +83,14 @@ class AuthorController extends Controller
 
         $author->update($dataUpdate);
 
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
 
     public function destroy(Author $author)
     {
         $author->delete();
 
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
 
     public function detail($id)

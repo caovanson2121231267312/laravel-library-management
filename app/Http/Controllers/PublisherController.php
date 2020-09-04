@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Publisher;
 use App\Http\Requests\PublisherRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PublisherController extends Controller
 {
     public function index()
     {
+        if (session('success_title')) {
+            toast(session('success_title'), 'success');
+        }
+
         $publishers = Publisher::latest()->paginate(config('const.five'));
 
         return view('admin.publisher.index', compact('publishers'));
@@ -24,7 +29,7 @@ class PublisherController extends Controller
     {
         Publisher::create($request->all());
 
-        return redirect()->route('publishers.index');
+        return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
 
     public function edit($id)
@@ -39,13 +44,13 @@ class PublisherController extends Controller
         $publisher = Publisher::find($id);
         $publisher->update($request->all());
 
-        return redirect()->route('publishers.index');
+        return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
 
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
 
-        return redirect()->route('publishers.index');
+        return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
 }

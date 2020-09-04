@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+    <link rel="stylesheet" href="{{ asset('admin-lte/plugins/fontawesome-free/css/all.min.css') }}">
     <link href="{{ asset('book_lib/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('book_lib/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('book_lib/css/font-awesome.css') }}" rel="stylesheet">
