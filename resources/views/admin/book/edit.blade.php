@@ -35,7 +35,7 @@
 
                                 <div class="form-group">
                                     <label>{{ trans('message.description') }}</label>
-                                    <textarea class="form-control" rows="3">{{ $book->description }}</textarea>
+                                    <textarea class="form-control" name="description" rows="3">{{ $book->description }}</textarea>
                                 </div>
 
                                 <div class="form-group">

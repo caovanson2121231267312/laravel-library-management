@@ -132,7 +132,7 @@
                             </li>
 
                             <li class="dropdown menu__item">
-                                <a href="" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.books') }} 
+                                <a href="" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('message.categories') }} 
                                     <span class="caret"></span>
                                 </a>
 
@@ -145,7 +145,11 @@
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
                                                 @foreach ($categoriesLeft as $categoryLeft)
-                                                    <li><a href="{{ route('book.index') }}">{{ $categoryLeft->name }}</a></li>
+                                                    <li>
+                                                        <a href="{{ route('show_by_category', [$categoryLeft->name, $categoryLeft->id]) }}">
+                                                            {{ $categoryLeft->name }}
+                                                        </a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -153,7 +157,11 @@
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
                                                 @foreach ($categoriesRight as $categoryRight)
-                                                    <li><a href="{{ route('book.index') }}">{{ $categoryRight->name }}</a></li>
+                                                    <li>
+                                                        <a href="{{ route('show_by_category', [$categoryRight->name, $categoryRight->id]) }}">
+                                                            {{ $categoryRight->name }}
+                                                        </a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -202,12 +210,6 @@
                                     </a>
                                 </li>
                             @endif
-
-                            <li class=" menu__item">
-                                <a class="menu__link" href="">
-                                    {{ trans('home.contact') }}
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>

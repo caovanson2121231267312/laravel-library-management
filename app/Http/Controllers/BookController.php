@@ -43,9 +43,11 @@ class BookController extends Controller
 
             return view('admin.book.index', compact('books'));
         } else {
-            $books = Book::latest()->paginate(config('book.number_of_new_books'));
+            $parentCategories = Category::orderBy('name')->whereNull('parent_id')->get();
 
-            return view('book', compact('books'));
+            $books = Book::latest()->paginate(config('const.nine'));
+
+            return view('book', compact(['books', 'parentCategories']));
         }
 
     }

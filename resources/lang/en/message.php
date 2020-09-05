@@ -62,5 +62,10 @@ return [
     'input_email_of_user' => 'Input email of user',
     'password' => 'Password',
     'input_phone_number_of_user' => 'Input phone number of user',
-    'edit_user' => 'Edit user'
+    'edit_user' => 'Edit user',
+    'all_books' => 'All Books',
+    'close' => 'Close',
+    'export' => 'Export to file Excel',
+    'created_at' => 'Created at',
+    'updated_at' => 'Updated at',
 ];

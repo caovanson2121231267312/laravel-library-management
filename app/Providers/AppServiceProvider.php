@@ -28,23 +28,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $book = Book::latest()->get();
+        $hotBooks = Book::withCount('likes')
+            ->whereHas('likes', function($q) {
+                $q->where('status', config('const.like'));
+            })
+            ->orderBy('likes_count', 'desc')
+            ->take(config('book.number_of_new_books'))
+            ->get();
 
-        $textBooks = $book
-            ->where('category_id', config('book.textbook_category_id'))
-            ->take(config('book.number_of_new_books'));
-
-        $referenceBooks = $book
-            ->where('category_id', config('book.reference_book_category_id'))
-            ->take(config('book.number_of_new_books'));
-
-        $comics = $book
-            ->where('category_id', config('book.comic_category_id'))
-            ->take(config('book.number_of_new_books'));
-
-        $newspapers = $book
-            ->where('category_id', config('book.newspaper_category_id'))
-            ->take(config('book.number_of_new_books'));
+        $newBooks = Book::latest()->take(config('book.number_of_new_books'))->get();
 
         $categoriesLeft = Category::whereBetween('id', [config('book.textbook_category_id'), config('book.entertainment_category_id')])
             ->take(config('book.number_of_column'))
@@ -66,10 +58,8 @@ class AppServiceProvider extends ServiceProvider
             ->get();
             
         View::share([
-            'textBooks' => $textBooks, 
-            'referenceBooks' => $referenceBooks,
-            'comics' => $comics,
-            'newspapers' => $newspapers,
+            'hotBooks' => $hotBooks,
+            'newBooks' => $newBooks,
             'categoriesLeft' => $categoriesLeft,
             'categoriesRight' => $categoriesRight,
             'authorsLeft' => $authorsLeft,
