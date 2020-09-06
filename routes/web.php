@@ -31,8 +31,18 @@ Route::get('request/{user}', 'RequestController@indexUser')->name('user.index');
 //Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('home', 'AdminController@index')->name('admin.home');
-    Route::resource('publishers', 'PublisherController');
-    Route::resource('authors', 'AuthorController');
+    Route::resource('publishers', 'PublisherController')->except([
+        'create',
+        'show',
+        'edit',
+    ]);
+    Route::get('publishers/export', 'PublisherController@export')->name('admin.publisher_export');
+    Route::resource('authors', 'AuthorController')->except([
+        'create',
+        'show',
+        'edit',
+    ]);
+    Route::get('authors/export', 'AuthorController@export')->name('admin.author_export');
     Route::resource('categories', 'CategoryController');
     Route::resource('books', 'BookController');
     Route::resource('users', 'UserController')->except([

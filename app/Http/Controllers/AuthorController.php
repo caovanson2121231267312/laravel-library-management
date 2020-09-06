@@ -8,6 +8,9 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Http\Requests\AuthorRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use Excel;
+use App\Exports\AuthorsExport;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
 class AuthorController extends Controller
 {
@@ -25,7 +28,7 @@ class AuthorController extends Controller
                 toast(session('success_title'), 'success');
             }
 
-            $authors = Author::latest()->paginate(config('const.five'));
+            $authors = Author::latest()->get();
 
             return view('admin.author.index', compact('authors'));
         } else {
@@ -33,11 +36,6 @@ class AuthorController extends Controller
 
             return view('author', compact('authors'));
         }
-    }
-
-    public function create()
-    {
-        return view('admin.author.add');
     }
 
     public function store(AuthorRequest $request)
@@ -55,23 +53,12 @@ class AuthorController extends Controller
         return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
 
-    public function edit($id)
+    public function update(Request $request)
     {
         try {
-            $author = Author::findOrFail($id);
+            $author = Author::findOrFail($request->id);
         } catch (ModelNotFoundException $exception) {
-            return view('404');
-        }
-
-        return view('admin.author.edit', compact('author'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        try {
-            $author = Author::findOrFail($id);
-        } catch (ModelNotFoundException $exception) {
-            return view('404');
+            return view('404'); 
         }
         $dataUpdate = $request->all();
 
@@ -103,5 +90,10 @@ class AuthorController extends Controller
         }
 
         return view('auth_detail', compact('author'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new AuthorsExport, 'authors.xlsx');
     }
 }
