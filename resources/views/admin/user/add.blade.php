@@ -1,65 +1,43 @@
-@extends('admin.layouts.app')
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header set-bg">
+                <h3 class="card-title">{{ trans('message.add_user') }}</h3>
+                <button type="button" class="close white" data-dismiss="modal">&times;</button>
+            </div>
 
-@section('title')
-    <title>{{ trans('message.add_user') }}</title>
-@endsection
+            <form method="POST" action="{{ route('users.store') }}">
+                @csrf
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>{{ trans('message.name') }}</label>
+                        <input type="text" class="form-control" name="name" required
+                            placeholder="{{ trans('message.input_name_of_user') }}">
+                    </div>
 
-@section('content')
-<div class="content-wrapper">
+                    <div class="form-group">
+                        <label>{{ trans('message.email') }}</label>
+                        <input type="email" class="form-control" name="email" value="" required
+                            placeholder="{{ trans('message.input_email_of_user') }}">
+                    </div>
 
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card card-primary mt-5">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ trans('message.add_user') }}</h3>
-                        </div>
+                    <div class="form-group">
+                        <label>{{ trans('message.password') }}</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
 
-                        <form method="POST" action="">
-                            @csrf
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label>{{ trans('message.name') }}</label>
-                                    <input type="text" class="form-control" name="name"
-                                        placeholder="{{ trans('message.input_name_of_user') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('message.email') }}</label>
-                                    <input type="email" class="form-control" name="email"
-                                        placeholder="{{ trans('message.input_email_of_user') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('message.password') }}</label>
-                                    <input type="password" class="form-control" name="password">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('message.phone_number') }}</label>
-                                    <input type="text" class="form-control" name="phone"
-                                        placeholder="{{ trans('message.input_phone_number_of_user') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('message.avatar') }}</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                        <label class="custom-file-label"
-                                            for="inputGroupFile02">{{ trans('message.choose_file') }}</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ trans('message.submit') }}</button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label>{{ trans('message.phone_number') }}</label>
+                        <input type="text" class="form-control" name="phone_number" required
+                            placeholder="{{ trans('message.input_phone_number_of_user') }}">
                     </div>
                 </div>
-            </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('message.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('message.submit') }}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-@endsection

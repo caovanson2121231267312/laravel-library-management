@@ -34,6 +34,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('authors', 'AuthorController');
     Route::resource('categories', 'CategoryController');
     Route::resource('books', 'BookController');
+    Route::resource('users', 'UserController')->except([
+        'create',
+        'show',
+        'edit',
+    ]);
+    Route::get('users/export', 'UserController@export')->name('admin.user_export');
     Route::get('requests', 'RequestController@index')->name('admin.request');
     Route::get('check/{id}', 'RequestController@check')->name('admin.check');
     Route::get('approve/{id}', 'RequestController@approve')->name('admin.approve');
