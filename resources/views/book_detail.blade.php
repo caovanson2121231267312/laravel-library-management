@@ -29,20 +29,14 @@
             </div>
             
             <div class="col-md-8 single-right-left simpleCart_shelfItem add-book-div">
-                <h3 class="mb-32px book-name">{{ $book->title }}</h3>
-                <div class="rating1 mb-32px">
-                    <span class="starRating">
-                        <input id="rating5" type="radio" name="rating" checked>
-                        <label for="rating5" data-id="5" class="test"></label>
-                        <input id="rating4" type="radio" name="rating">
-                        <label for="rating4" data-id="4" class="test"></label>
-                        <input id="rating3" type="radio" name="rating">
-                        <label for="rating3" data-id="3" class="test"></label>
-                        <input id="rating2" type="radio" name="rating">
-                        <label for="rating2" data-id="2" class="test"></label>
-                        <input id="rating1" type="radio" name="rating">
-                        <label for="rating1" data-id="1" class="test"></label>
-                    </span>
+                <h3 class="mb-32px book-name size-40">{{ $book->title }}</h3>
+                <div class="rating1 mb-32px ml-7px">
+                    <div id="rate" data-rate={{ $rate }}></div>
+                    {{-- <input type="hidden" data-rate={{ $rate }}> --}}
+                </div>
+
+                <div class="rating1 mb-32px ml-7px">
+                    <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendRate" value="{{ trans('request.send_rate') }}">
                 </div>
 
                 <div class="description mb-32px">
@@ -167,6 +161,34 @@
                 @endforeach
 
                 <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="sendRate" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body modal-body-sub_agile">
+                    <div class="col-md-12 modal_body_left modal_body_left1">
+                        <h3 class="agileinfo_sign text-center">{{ trans('request.ratting') }}</h3>
+                        <form method="POST" action="{{ route('rate', $book->id) }}">
+                            @csrf    
+                            <div class="styled-input">
+                                <a id="myRate" class="set-rate"></a>
+                                <input type="hidden" name="ratting" id="ratting">
+                            </div>
+
+                            <div class="col-md-12 test text-center">
+                                <input type="submit" value="{{ trans('request.send') }}" class="bg-blue">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
     </div>

@@ -14,6 +14,9 @@
     <link href="{{ asset('book_lib/css/flexslider.css') }}" rel="stylesheet" type="text/css" media="screen" />
     <link href="{{ asset('admin-lte/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('admin-lte/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('rate-yo/jquery.rateyo.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('rate-yo/jquery.rateyo.min.js') }}"></script>
 </head>
 
 <body>
@@ -31,7 +34,6 @@
 
     @include('sweetalert::alert')
 
-    <script src="{{ asset('book_lib/js/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('book_lib/js/modernizr.custom.js') }}"></script>
     <script src="{{ asset('book_lib/js/imagezoom.js') }}"></script>
     <script src="{{ asset('book_lib/js/minicart.min.js') }}"></script>
@@ -49,6 +51,7 @@
     <script src="{{ asset('admin-lte/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <script src="{{ asset('admin-lte/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ mix('js/rate.js') }}"></script>
 </body>
 
 </html>
