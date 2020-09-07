@@ -39,8 +39,14 @@
             </li>
 
             <li>
-                <i class="fa fa-envelope-o" aria-hidden="true"></i><a href="">{{ trans('home.eng') }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa fa-envelope-o" aria-hidden="true"></i><a href="">{{ trans('home.vi') }}</a>
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <a href="{{ route('lang', ['lang' => 'en']) }}">
+                    {{ trans('home.eng') }}
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <a href="{{ route('lang', ['lang' => 'vi']) }}">
+                    {{ trans('home.vi') }}
+                </a>
             </li>
         </ul>
     </div>

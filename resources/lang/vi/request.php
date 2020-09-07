@@ -2,7 +2,7 @@
 
 return [
     'my_request' => 'Yêu cầu của tôi',
-    'request_book_management' => 'Quản lý yêu cầu',
+    'request_management' => 'Quản lý yêu cầu',
     'status' => 'Trạng thái',
     'approve' => 'Đồng ý',
     'reject' => 'Từ chôí',
@@ -27,4 +27,7 @@ return [
     'ok' => 'Đạt',
     'not_ok' => 'Không đạt',
     'borrowing_books' => 'Sách đang mượn',
+    'send_rate' => 'Gửi đánh giá',
+    'send' => 'Gửi',
+    'ratting' => 'Đánh giá',
 ];

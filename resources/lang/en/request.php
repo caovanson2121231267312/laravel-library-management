@@ -27,4 +27,7 @@ return [
     'ok' => 'OK',
     'not_ok' => 'Not OK',
     'borrowing_books' => 'Borrowing Books',
+    'send_rate' => 'Send Rate',
+    'send' => 'Send',
+    'ratting' => 'Ratting',
 ];

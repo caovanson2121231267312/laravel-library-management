@@ -18,3 +18,6 @@ yarn-error.log
 /public/images
 /public/book_lib
 /public/vendor
+/public/tree_view
+/stubs
+/public/rate-yo

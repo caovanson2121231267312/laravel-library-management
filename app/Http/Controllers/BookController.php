@@ -9,8 +9,10 @@ use App\Models\Category;
 use App\Models\Author;
 use App\Models\Publisher;
 use App\Models\Like;
+use App\Models\Rate;
 use App\Http\Requests\BookRequest;
 use App\Components\Recusive;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
 {
@@ -123,8 +125,12 @@ class BookController extends Controller
 
     public function detail($id)
     {
+        if (session('success_title')) {
+            toast(session('success_title'), 'success');
+        }
+
         try {
-            $book = Book::withCount('likes')->find($id);
+            $book = Book::withCount(['likes', 'rates'])->find($id);
         } catch (ModelNotFoundException $exception) {
 
             return view('404');
@@ -144,8 +150,10 @@ class BookController extends Controller
             ->where('category_id', $book->category_id)
             ->take((config('book.number_of_related_books')))
             ->get();
+
+        $rate = $book->rates->avg('ratting');
         
-        return view('book_detail', compact(['book', 'relatedBooks', 'countLike', 'countUnlike']));
+        return view('book_detail', compact(['book', 'relatedBooks', 'countLike', 'countUnlike', 'rate']));
     }
 
     public function like($id)
@@ -200,5 +208,29 @@ class BookController extends Controller
         }
 
         return redirect()->route('book_detail', $id);
+    }
+
+    public function rate(Request $request, $id)
+    {   
+        $check = Rate::where([
+            ['user_id', Auth::id()],
+            ['book_id', $id],
+        ])->first();
+
+        if ($check == null) {
+            $data = [
+                'user_id' => Auth::id(),
+                'book_id' => $id,
+                'ratting' => (int) $request->ratting,
+            ];    
+
+            Rate::create($data);
+        } else {
+            $check['ratting'] = (int) $request->ratting;
+
+            $check->update();
+        }
+
+        return redirect()->route('book_detail', $id)->withSuccessTitle(trans('request.success'));
     }
 }
