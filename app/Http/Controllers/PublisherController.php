@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Publisher;
 use App\Http\Requests\PublisherRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use Excel;
+use App\Exports\PublishersExport;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PublisherController extends Controller
 {
@@ -15,14 +18,9 @@ class PublisherController extends Controller
             toast(session('success_title'), 'success');
         }
 
-        $publishers = Publisher::latest()->paginate(config('const.five'));
+        $publishers = Publisher::latest()->get();
 
         return view('admin.publisher.index', compact('publishers'));
-    }
-
-    public function create()
-    {
-        return view('admin.publisher.add');
     }
 
     public function store(PublisherRequest $request)
@@ -32,16 +30,15 @@ class PublisherController extends Controller
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
 
-    public function edit($id)
+    public function update(Request $request)
     {
-        $publisher = Publisher::find($id);
+        try {
+            $publisher = Publisher::findOrFail($request->id);
+        } catch (ModelNotFoundException $exception) {
 
-        return view('admin.publisher.edit', compact('publisher'));
-    }
+            return view('404');
+        }
 
-    public function update(Request $request, $id)
-    {
-        $publisher = Publisher::find($id);
         $publisher->update($request->all());
 
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
@@ -52,5 +49,10 @@ class PublisherController extends Controller
         $publisher->delete();
 
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new PublishersExport, 'publishers.xlsx');
     }
 }

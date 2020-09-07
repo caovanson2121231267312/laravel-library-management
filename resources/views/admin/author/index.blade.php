@@ -18,76 +18,79 @@
                                 </li>
                             </ul>
 
-                            <form class="form-inline ml-5">
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search"
-                                        placeholder="{{ trans('message.search') }}"
-                                        aria-label="{{ trans('message.search') }}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a href="{{ route('authors.create') }}">
+                                    <a href="{{ route('admin.author_export') }}">
+                                        <button class="btn btn-success">
+                                            {{ trans('message.export') }}
+                                        </button>
+                                    </a>
+                                </li>&nbsp;&nbsp;&nbsp;
+                                
+                                <li class="nav-item">
+                                    <a data-toggle="modal" data-target="#addAuthor" href="">
                                         <i class="fas fa-plus float-right m-2"></i>
                                     </a>
+                                    @include('admin.author.add')
                                 </li>
                             </ul>
                         </nav>
                     </div>
 
                     <div class="card-body">
-                        <div class="jsgrid">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr class="row">
-                                        <th class="text-center col-md-1">{{ trans('request.id') }}</th>
-                                        <th class="text-center col-md-2">{{ trans('message.name') }}</th>
-                                        <th class="text-center col-md-3">{{ trans('message.description') }}</th>
-                                        <th class="text-center col-md-2">{{ trans('message.email') }}</th>
-                                        <th class="text-center col-md-2">{{ trans('message.avatar') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.edit') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.delete') }}</th>
+                        <table id="listAuthors" class="table table-bordered table-striped dataTable dtr-inline max-width">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">{{ trans('request.id') }}</th>
+                                    <th class="text-center">{{ trans('message.name') }}</th>
+                                    <th class="text-center">{{ trans('message.email') }}</th>
+                                    <th class="text-center">{{ trans('message.description') }}</th>
+                                    <th class="text-center">{{ trans('message.avatar') }}</th>
+                                    <th class="text-center">{{ trans('request.edit') }}</th>
+                                    <th class="text-center">{{ trans('request.delete') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($authors as $key => $author)
+                                    <tr>
+                                        <td class="text-center">{{ $key + config('const.one') }}</td>
+                                        <td>{{ $author->name }}</td>
+                                        <td>{{ $author->email }}</td>
+                                        <td>{{ $author->description }}</td>
+                                        <td>
+                                            <img src="{{ $author->avatar }}" class="image-management">
+                                        </td>
+                                        <td class="text-center">
+                                            <a 
+                                                class="badge badge-primary text-white" 
+                                                data-id="{{ $author->id }}"
+                                                data-name="{{ $author->name }}"
+                                                data-email="{{ $author->email }}"
+                                                data-description="{{ $author->description }}"
+                                                data-toggle="modal" 
+                                                data-target="#editAuthor"  
+                                                href="">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        @include('admin.author.edit')
+
+                                        <td class="text-center">
+                                            <form method="POST"
+                                                action="{{ route('authors.destroy', $author->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="badge badge-danger text-white border-none">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($authors as $key => $author)
-                                        <tr class="row">
-                                            <td class="text-center col-md-1">{{ $key + 1 }}</td>
-                                            <td class="col-md-2">{{ $author->name }}</td>
-                                            <td class="col-md-3">{{ $author->description }}</td>
-                                            <td class="col-md-2">{{ $author->email }}</td>
-                                            <td class="col-md-2">
-                                                <img src="{{ $author->avatar }}" class="image-management">
-                                            </td>
-                                            <td class="text-center col-md-1">
-                                                <a class="badge badge-primary text-white" href="{{ route('authors.edit', $author->id) }}">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center col-md-1">
-                                                <form method="POST"
-                                                    action="{{ route('authors.destroy', $author->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger text-white border-none">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>  
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>  
                     </div>
                 </div>
-                {{ $authors->links() }}
             </div>
         </div>
     </div>

@@ -18,72 +18,75 @@
                                 </li>
                             </ul>
 
-                            <form class="form-inline ml-5">
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search"
-                                        placeholder="{{ trans('message.search') }}"
-                                        aria-label="{{ trans('message.search') }}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a href="{{ route('publishers.create') }}">
+                                    <a href="{{ route('admin.publisher_export') }}">
+                                        <button class="btn btn-success">
+                                            {{ trans('message.export') }}
+                                        </button>
+                                    </a>
+                                </li>&nbsp;&nbsp;&nbsp;
+                                
+                                <li class="nav-item">
+                                    <a data-toggle="modal" data-target="#addPublisher" href="">
                                         <i class="fas fa-plus float-right m-2"></i>
                                     </a>
+                                    @include('admin.publisher.add')
                                 </li>
                             </ul>
                         </nav>
                     </div>
 
                     <div class="card-body">
-                        <div class="jsgrid">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr class="row">
-                                        <th class="text-center col-md-1">{{ trans('request.id') }}</th>
-                                        <th class="text-center col-md-3">{{ trans('message.name') }}</th>
-                                        <th class="text-center col-md-3">{{ trans('message.email') }}</th>
-                                        <th class="text-center col-md-3">{{ trans('message.address') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.edit') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.delete') }}</th>
+                        <table id="listPublishers" class="table table-bordered table-striped dataTable dtr-inline max-width">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">{{ trans('request.id') }}</th>
+                                    <th class="text-center">{{ trans('message.name') }}</th>
+                                    <th class="text-center">{{ trans('message.email') }}</th>
+                                    <th class="text-center">{{ trans('message.address') }}</th>
+                                    <th class="text-center">{{ trans('request.edit') }}</th>
+                                    <th class="text-center">{{ trans('request.delete') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($publishers as $key => $publisher)
+                                    <tr>
+                                        <td class="text-center">{{ $key + config('const.one') }}</td>
+                                        <td>{{ $publisher->name }}</td>
+                                        <td>{{ $publisher->email }}</td>
+                                        <td>{{ $publisher->address }}</td>
+                                        <td class="text-center">
+                                            <a 
+                                                class="badge badge-primary text-white" 
+                                                data-id="{{ $publisher->id }}"
+                                                data-name="{{ $publisher->name }}"
+                                                data-email="{{ $publisher->email }}"
+                                                data-address="{{ $publisher->address }}"
+                                                data-toggle="modal" 
+                                                data-target="#editPublisher"  
+                                                href="">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        @include('admin.publisher.edit')
+
+                                        <td class="text-center">
+                                            <form method="POST"
+                                                action="{{ route('publishers.destroy', $publisher->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="badge badge-danger text-white border-none">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($publishers as $key => $publisher)
-                                        <tr class="row">
-                                            <td class="text-center col-md-1">{{ $key + 1 }}</td>
-                                            <td class="col-md-3">{{ $publisher->name }}</td>
-                                            <td class="col-md-3">{{ $publisher->email }}</td>
-                                            <td class="col-md-3">{{ $publisher->address }}</td>
-                                            <td class="text-center col-md-1">
-                                                <a class="badge badge-primary text-white" href="{{ route('publishers.edit', $publisher->id) }}">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center col-md-1">
-                                                <form method="POST"
-                                                    action="{{ route('publishers.destroy', $publisher->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger text-white border-none">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>  
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>  
                     </div>
                 </div>
-                {{ $publishers->links() }}
             </div>
         </div>
     </div>
