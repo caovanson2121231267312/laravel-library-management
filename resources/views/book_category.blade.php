@@ -47,11 +47,11 @@
                 <div class="single-pro">
                     <div class="products-right text-center">
                         <h5>
-                            {{ trans('message.all_books') }}
+                            {{ $getCategory->name }}
                         </h5>
                     </div>
-
-                    @foreach ($books as $book)
+                    
+                    @foreach ($allBooks as $book)
                         <div class="col-md-4 product-men add-book-div">
                             <div class="men-pro-item simpleCart_shelfItem">
                                 <div class="men-thumb-item">
@@ -78,10 +78,6 @@
                     @endforeach
     
                     <div class="clearfix"></div>
-                </div>
-                
-                <div class="text-center">
-                    {{ $books->links() }}
                 </div>
             </div>
         </div>

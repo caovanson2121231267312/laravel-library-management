@@ -52,6 +52,7 @@
     <script src="{{ asset('admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <script src="{{ asset('admin-lte/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ mix('js/rate.js') }}"></script>
+    <script src="{{ asset('tree_view/js/javascript.js') }}"></script>
 </body>
 
 </html>

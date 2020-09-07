@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Book;
 use App\Components\Recusive;
 
 class CategoryController extends Controller
@@ -74,5 +75,28 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index');
+    }
+
+    public function showByCategory($category, $id)
+    {
+        $parentCategories = Category::orderBy('name')->whereNull('parent_id')->get();
+
+        $getCategory = Category::with('books')->find($id);
+
+        $allBooks = collect([]);
+
+        if (count($getCategory->subCategories) == 0) {
+            foreach ($getCategory->books as $book) {
+                $allBooks->push($book);
+            }
+        } else {
+            foreach ($getCategory->subCategories as $subCategory) {
+                foreach ($subCategory->books as $book) {
+                    $allBooks->push($book);
+                }
+            }
+        }
+
+        return view('book_category', compact(['parentCategories', 'getCategory', 'allBooks']));
     }
 }

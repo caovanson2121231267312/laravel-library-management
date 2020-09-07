@@ -62,5 +62,10 @@ return [
     'input_email_of_user' => 'Nhập email người dùng',
     'password' => 'Mật khẩu',
     'input_phone_number_of_user' => 'Nhập số điện thoại người dùng',
-    'edit_user' => 'Chỉnh sửa thông tin người dùng'
+    'edit_user' => 'Chỉnh sửa thông tin người dùng',
+    'all_books' => 'Tất cả các sách',
+    'close' => 'Đóng',
+    'export' => 'Xuất ra file Excel',
+    'created_at' => 'Thời gian tạo',
+    'updated_at' => 'Thời gian sửa',
 ];

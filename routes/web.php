@@ -18,6 +18,7 @@ Route::get('books/{book}', 'BookController@detail')->name('book_detail');
 Route::get('like/{book}', 'BookController@like')->name('like');
 Route::get('unlike/{book}', 'BookController@unlike')->name('unlike');
 Route::post('rate/{book}', 'BookController@rate')->name('rate');
+Route::get('books/{category}/{id}', 'CategoryController@showByCategory')->name('show_by_category');
 
 //Authors
 Route::get('authors', 'AuthorController@index')->name('author.index');
