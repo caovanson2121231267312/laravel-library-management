@@ -7,25 +7,33 @@ use Illuminate\Support\Facades\View;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
-use App\Models\Publisher;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\User\UserRepository;
+use App\Repositories\Publisher\PublisherRepositoryInterface;
+use App\Repositories\Publisher\PublisherRepository;
+use App\Repositories\Author\AuthorRepositoryInterface;
+use App\Repositories\Author\AuthorRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
-        //
+        $this->app->singleton(
+            UserRepositoryInterface::class,
+            UserRepository::class,
+        );
+
+        $this->app->singleton(
+            PublisherRepositoryInterface::class,
+            PublisherRepository::class,
+        );
+
+        $this->app->singleton(
+            AuthorRepositoryInterface::class,
+            AuthorRepository::class,
+        );
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         $hotBooks = Book::withCount('likes')
