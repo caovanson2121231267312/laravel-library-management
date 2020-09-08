@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Author;
+use App\Repositories\Author\AuthorRepositoryInterface;
 use App\Models\Book;
 use App\Http\Requests\AuthorRequest;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -14,9 +14,12 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class AuthorController extends Controller
 {
-    public function __construct()
+    protected $authorRepo;
+
+    public function __construct(AuthorRepositoryInterface $authorRepo)
     {
         $this->middleware('auth');
+        $this->authorRepo = $authorRepo;
     }
 
     public function index()
@@ -28,11 +31,11 @@ class AuthorController extends Controller
                 toast(session('success_title'), 'success');
             }
 
-            $authors = Author::latest()->get();
+            $authors = $this->authorRepo->getAuthorAdmin();
 
             return view('admin.author.index', compact('authors'));
         } else {
-            $authors = Author::latest()->paginate(config('book.textbook_category_id'));
+            $authors = $this->authorRepo->getAuthorUser();
 
             return view('author', compact('authors'));
         }
@@ -48,7 +51,7 @@ class AuthorController extends Controller
             $author['avatar'] = $name_image;
         }
 
-        Author::create($author);
+        $this->authorRepo->create($author);
 
         return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
@@ -56,7 +59,7 @@ class AuthorController extends Controller
     public function update(Request $request)
     {
         try {
-            $author = Author::findOrFail($request->id);
+            $author = $this->authorRepo->find($request->id);
         } catch (ModelNotFoundException $exception) {
             return view('404'); 
         }
@@ -73,8 +76,15 @@ class AuthorController extends Controller
         return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
     }
 
-    public function destroy(Author $author)
+    public function destroy($id)
     {
+        try {
+            $author = $this->authorRepo->find($id);
+        } catch (ModelNotFoundException $exception) {
+
+            return view('404');
+        }
+
         $author->delete();
 
         return redirect()->route('authors.index')->withSuccessTitle(trans('request.success'));
@@ -83,7 +93,7 @@ class AuthorController extends Controller
     public function detail($id)
     {
         try {
-            $author = Author::with('books')->find($id);
+            $author = $this->authorRepo->find($id);
         } catch (ModelNotFoundException $exception) {
 
             return view('404');

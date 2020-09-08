@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Publisher;
+use App\Repositories\Publisher\PublisherRepositoryInterface;
 use App\Http\Requests\PublisherRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Excel;
@@ -12,20 +12,27 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PublisherController extends Controller
 {
+    protected $publisherRepo;
+
+    public function __construct(PublisherRepositoryInterface $publisherRepo)
+    {
+        $this->publisherRepo = $publisherRepo;
+    }
+
     public function index()
     {
         if (session('success_title')) {
             toast(session('success_title'), 'success');
         }
 
-        $publishers = Publisher::latest()->get();
+        $publishers = $this->publisherRepo->getPublisher();
 
         return view('admin.publisher.index', compact('publishers'));
     }
 
     public function store(PublisherRequest $request)
     {
-        Publisher::create($request->all());
+        $this->publisherRepo->create($request->all());
 
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
@@ -33,7 +40,7 @@ class PublisherController extends Controller
     public function update(Request $request)
     {
         try {
-            $publisher = Publisher::findOrFail($request->id);
+            $publisher = $this->publisherRepo->find($request->id);
         } catch (ModelNotFoundException $exception) {
 
             return view('404');
@@ -44,8 +51,15 @@ class PublisherController extends Controller
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
     }
 
-    public function destroy(Publisher $publisher)
+    public function destroy($id)
     {
+        try {
+            $publisher = $this->publisherRepo->find($id);
+        } catch (ModelNotFoundException $exception) {
+
+            return view('404');
+        }
+
         $publisher->delete();
 
         return redirect()->route('publishers.index')->withSuccessTitle(trans('request.success'));
