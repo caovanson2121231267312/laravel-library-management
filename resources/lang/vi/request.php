@@ -30,4 +30,6 @@ return [
     'send_rate' => 'Gửi đánh giá',
     'send' => 'Gửi',
     'ratting' => 'Đánh giá',
+    'out_of_books' => 'Hết sách',
+    'go_to_request' => 'Tới trang gửi yêu cầu'
 ];

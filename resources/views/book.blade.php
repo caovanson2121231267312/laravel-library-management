@@ -68,9 +68,15 @@
                                     <h4><a class="book-name" href="{{ route('book_detail', $book->id) }}">{{ $book->title }}</a></h4>
     
                                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-                                        <button class="add-book" data-id="{{ $book->id }}">
-                                            {{ trans('home.add_to_form') }}
-                                        </button>
+                                        @if ($book->number_of_available_books == config('const.zero'))
+                                            <button class="add-book" disabled>
+                                                {{ trans('request.out_of_books') }}
+                                            </button> 
+                                        @else
+                                            <button class="add-book" data-id="{{ $book->id }}">
+                                                {{ trans('home.add_to_form') }}
+                                            </button> 
+                                        @endif
                                     </div>
                                 </div>
                             </div>
