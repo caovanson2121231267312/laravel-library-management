@@ -75,7 +75,11 @@
                                     @default                                       
                                 @endswitch
 
-                                <td class="text-center"><a class="badge badge-warning text-black"><i class="fa fa-eye"></i></a></td>
+                                @if ($formRequest->status == config('request.reject'))
+                                    <td class="text-center"><a class="badge badge-warning edit-disabled"><i class="fa fa-eye"></i></a></td>
+                                @else
+                                    <td class="text-center"><a class="badge badge-warning text-black"><i class="fa fa-eye"></i></a></td>
+                                @endif
 
                                 @if ($formRequest->status == config('request.reject') || $formRequest->status == config('request.approve'))
                                     <td class="text-center"><a class="badge badge-success edit-disabled"><i class="fa fa-trash-o"></i></a></td>

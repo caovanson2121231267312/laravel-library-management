@@ -28,10 +28,9 @@
                                         <th class="text-center col-md-1">{{ trans('request.id') }}</th>
                                         <th class="text-center col-md-2">{{ trans('message.name') }}</th>
                                         <th class="text-center col-md-3">{{ trans('message.email') }}</th>
+                                        <th class="text-center col-md-2">{{ trans('message.phone_number') }}</th>
                                         <th class="text-center col-md-2">{{ trans('request.request_id') }}</th>
                                         <th class="text-center col-md-1">{{ trans('request.check') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.approve') }}</th>
-                                        <th class="text-center col-md-1">{{ trans('request.reject') }}</th>
                                         <th class="text-center col-md-1">{{ trans('request.checked') }}</th>
                                     </tr>
                                 </thead>
@@ -41,20 +40,11 @@
                                             <td class="text-center col-md-1">{{ $key + 1 }}</td>
                                             <td class="text-center col-md-2">{{ $formRequest->user->name }}</td>
                                             <td class="text-center col-md-3">{{ $formRequest->user->email }}</td>
+                                            <td class="text-center col-md-2">{{ $formRequest->user->phone_number }}</td>
                                             <td class="text-center col-md-2">{{ $formRequest->id }}</td>
                                             <td class="text-center col-md-1">
                                                 <a href="{{ route('admin.check', $formRequest->id) }}" class="badge badge-warning text-white">
                                                     <i class="fa fa-check"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center col-md-1">
-                                                <a href="{{ route('admin.approve', $formRequest->id) }}" class="badge badge-success text-white">
-                                                    <i class="far fa-circle"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center col-md-1">
-                                                <a href="{{ route('admin.reject', $formRequest->id) }}" class="badge badge-danger text-white">
-                                                    <i class="fa fa-times"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center col-md-1">

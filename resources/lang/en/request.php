@@ -30,4 +30,6 @@ return [
     'send_rate' => 'Send Rate',
     'send' => 'Send',
     'ratting' => 'Ratting',
+    'out_of_books' => 'Out of books',
+    'go_to_request' => 'Go To My Request',
 ];

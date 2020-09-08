@@ -87,21 +87,6 @@ class RequestController extends Controller
         return redirect()->route('user.index', Auth::id())->withSuccessTitle(trans('request.success'));
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function destroy($id)
     {
         try {
@@ -123,12 +108,10 @@ class RequestController extends Controller
             return view('404');
         }
 
-        //check time > 15 days
         $start = Carbon::parse($check['borrowed_at']);
         $end = Carbon::parse($check['returned_at']);
         $time = $start->diffInDays($end);
 
-        //check count borrowing books > 10
         $approveRequests = BorrowedBook::withCount('detailBorrowedBooks')
             ->where([
                 ['user_id', $check['user_id']],
@@ -144,7 +127,6 @@ class RequestController extends Controller
             $count += $approveRequest->detailBorrowedBooks->count();
         }
 
-        //check available book
         $checkAvailableBook = true;
         foreach ($check->detailBorrowedBooks as $book) {
             try {
@@ -162,57 +144,31 @@ class RequestController extends Controller
             }
         }
 
-        if ($time <= config('request.date') && $count < config('request.max') && $checkAvailableBook == true) {
+        if ($time <= config('request.date') && $count <= config('request.max') && $checkAvailableBook == true) {
+            $check['status'] = config('request.approve');
+
+            $check->update();
+
+            foreach ($check->detailBorrowedBooks as $book) {
+                try {
+                    $bookUpdate = Book::find($book['book_id']);
+                } catch (ModelNotFoundException $exception) {
+        
+                    return view('404');
+                }
+    
+                $bookUpdate['number_of_available_books'] = $bookUpdate['number_of_available_books'] - config('const.one');
+    
+                $bookUpdate->update();
+            }
 
             return redirect()->route('admin.request')->withSuccessTitle(trans('request.ok'));
         } else {
+            $check['status'] = config('request.reject');
+
+            $check->update();
 
             return redirect()->route('admin.request')->withErrorTitle(trans('request.not_ok'));
         }
-    }
-
-    public function approve($id)
-    {
-        try {
-            $approve = BorrowedBook::with('detailBorrowedBooks')->find($id);
-        } catch (ModelNotFoundException $exception) {
-
-            return view('404');
-        }
-
-        $approve['status'] = config('request.approve');
-
-        $approve->update();
-
-        foreach ($approve->detailBorrowedBooks as $book) {
-            try {
-                $bookUpdate = Book::find($book['book_id']);
-            } catch (ModelNotFoundException $exception) {
-    
-                return view('404');
-            }
-
-            $bookUpdate['number_of_available_books'] = $bookUpdate['number_of_available_books'] - 1;
-
-            $bookUpdate->update();
-        }
-
-        return redirect()->route('admin.request')->withSuccessTitle(trans('request.success'));
-    }
-
-    public function reject($id)
-    {
-        try {
-            $reject = BorrowedBook::findOrFail($id);
-        } catch (ModelNotFoundException $exception) {
-
-            return view('404');
-        }
-
-        $reject['status'] = config('request.reject');
-
-        $reject->update();
-
-        return redirect()->route('admin.request')->withSuccessTitle(trans('request.success'));
     }
 }
