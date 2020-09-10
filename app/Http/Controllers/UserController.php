@@ -20,7 +20,7 @@ class UserController extends Controller
         $this->userRepo = $userRepo;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         if (session('success_title')) {
             toast(session('success_title'), 'success');
