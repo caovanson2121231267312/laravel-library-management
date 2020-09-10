@@ -10,4 +10,5 @@ return [
     'unlike' => 0,
     'new_book' => 4,
     'new_request' => 7,
+    'test' => 3,
 ];
