@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Http\Requests\UserRequest;
@@ -46,15 +47,8 @@ class UserController extends Controller
         return redirect()->route('users.index')->withSuccessTitle(trans('request.success'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        try {
-            $user = $this->userRepo->find($request->id);
-        } catch (ModelNotFoundException $exception) {
-
-            return view('404');
-        }
-
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -62,7 +56,11 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ];
 
-        $user->update($data);
+        try {
+            $this->userRepo->update($request->id, $data);
+        } catch (ModelNotFoundException $exception) {
+            return view('errors.404');
+        }
 
         return redirect()->route('users.index')->withSuccessTitle(trans('request.success'));
     }
@@ -70,13 +68,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = $this->userRepo->find($id);
+            $this->userRepo->delete($id);
         } catch (ModelNotFoundException $exception) {
-
-            return view('404');
+            return view('errors.404');
         }
-
-        $user->delete();
 
         return redirect()->route('users.index')->withSuccessTitle(trans('request.success'));
     }
