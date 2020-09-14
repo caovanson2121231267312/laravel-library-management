@@ -21,3 +21,4 @@ yarn-error.log
 /public/tree_view
 /stubs
 /public/rate-yo
+.env.dusk.local
