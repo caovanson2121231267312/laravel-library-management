@@ -62,7 +62,7 @@
                             <span></span>
                         </div>
 
-                        <input type="submit" value="{{ trans('login.register') }}">
+                        <input type="submit" class="register-submit" value="{{ trans('login.register') }}">
                     </form>
 
                     <ul class="social-nav model-3d-0 footer-social w3_agile_social top_agile_third">
